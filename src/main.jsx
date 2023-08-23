@@ -6,11 +6,11 @@ import Root from "./Templates/Root";
 import ErrorPage from "./Pages/ErrorPage";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-  },
+  // {
+  //   path: "/",
+  //   element: <Root />,
+  //   errorElement: <ErrorPage />,
+  // },
   {
     path: "/user-dashboard",
     element: <Root />,
