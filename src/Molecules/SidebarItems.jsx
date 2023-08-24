@@ -73,7 +73,7 @@ function SidebarItemWithCollapse({ name }) {
 
 function Info() {
   return (
-    <div className="flex justify-end items-center gap-5">
+    <div className="flex justify-end items-center gap-5 text-sm font-semibold">
       <span>المساعدة</span>
       <span className="py-3 pl-2 rounded-l-full">
         <img src={infoIcon} alt="homeIcon" className="pr-5" />
@@ -84,7 +84,7 @@ function Info() {
 
 function Settinges() {
   return (
-    <div className="flex justify-end items-center gap-5">
+    <div className="flex justify-end items-center gap-5 text-sm font-semibold">
       <span>الإعدادات</span>
       <span className="py-3 pl-2 rounded-l-full">
         <img src={setting} alt="homeIcon" className="pr-5" />

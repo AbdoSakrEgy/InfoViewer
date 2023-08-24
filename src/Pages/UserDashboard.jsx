@@ -8,15 +8,14 @@ export default function UserDashboard() {
   return (
     <main className="w-[80%] overflow-auto">
       <header className="xl:h-20 bg-white"></header>
-      <section className="flex flex-row justify-between bg-[#F6F6F6]">
-        <div className="drawer xl:drawer-open">
+      <section className="flex flex-row justify-between gap-0 w-full bg-[#F6F6F6]">
+        {/* <div className="drawer xl:drawer-open">
           <input
             id="my-UserData-drawer"
             type="checkbox"
             className="drawer-toggle"
           />
           <div className="drawer-content">
-            {/* Page content here */}
             <label
               htmlFor="my-UserData-drawer"
               className="btn px-3 drawer-button xl:hidden bg-[#7661E2] hover:bg-[#7661E2] text-white "
@@ -31,9 +30,9 @@ export default function UserDashboard() {
             ></label>
             <UsersDateContainer />
           </div>
-        </div>
-        {/* <UsersDateContainer /> */}
-        <div className="flex flex-col basis-2/3">
+        </div> */}
+        <UsersDateContainer />
+        <div className="flex flex-col basis-[80%] bg-[#F6F6F6]">
           <UsersStatsContainer />
           <UsersTableContainer />
         </div>
