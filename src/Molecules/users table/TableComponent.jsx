@@ -141,7 +141,7 @@ const TableComponent = () => {
     []
   );
 
-  return <MaterialReactTable columns={columns} data={data} />;
+  return <MaterialReactTable columns={columns} data={data} enableColumnOrdering />;
 };
 
 export default TableComponent;
