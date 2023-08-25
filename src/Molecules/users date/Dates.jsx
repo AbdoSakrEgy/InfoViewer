@@ -1,25 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import { v4 as uuidv4 } from "uuid";
 
+// ====================================================================
 function daysInMonth(month, year) {
-  // console.log(new Date(year, month, 0).getDate());
   return new Date(year, month, 0).getDate();
 }
-
+// daysInMonth(7, 2009); // 31
+// ====================================================================
 function getDayName(date = new Date(), locale = "en-US") {
-  return date.toLocaleDateString(locale, { weekday: "long" });
+  switch (date.toLocaleDateString(locale, { weekday: "long" })) {
+    case "Saturday":
+      return "السبت";
+    case "Sunday":
+      return "الأحد";
+    case "Monday":
+      return "الإثنين";
+    case "Tuesday":
+      return "الثلاثاء";
+    case "Wednesday":
+      return "الأربعاء";
+    case "Thursday":
+      return "الخميس";
+    case "Friday":
+      return "الجمعة";
+  }
+  // return date.toLocaleDateString(locale, { weekday: "long" });
 }
 // console.log(getDayName(new Date('2023-08-23')));
+// ====================================================================
+
+function formatDate(date = new Date()) {
+  const year = date.toLocaleString("default", { year: "numeric" });
+  const month = date.toLocaleString("default", {
+    month: "2-digit",
+  });
+  const day = date.toLocaleString("default", { day: "2-digit" });
+
+  return [year, month, day].join("-");
+}
+// 👇️ 2023-07-26 (YYYY-MM-DD)
+// console.log(formatDate(new Date()));
+// ====================================================================
 
 export default function Dates() {
-  const [selectedDate, setSelectedDate] = useState("2023-08-23");
-  const [yearNumber, setYearNumber] = useState("2023");
-  const [monthNumber, setMonthNumber] = useState("08");
-  const [dayNumber, setDayNumber] = useState("23");
+  const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
+  const [selectedYearNumber, setSelectedYearNumber] = useState();
+  const [selectedMonthNumber, setSelectedMonthNumber] = useState();
+  const [selectedDayNumber, setSelectedDayNumber] = useState();
   useEffect(() => {
-    setYearNumber(selectedDate.slice(0, 4));
-    setMonthNumber(selectedDate.slice(5, 7));
-    setDayNumber(selectedDate.slice(8, 10));
+    setSelectedYearNumber(selectedDate.slice(0, 4));
+    setSelectedMonthNumber(selectedDate.slice(5, 7));
+    setSelectedDayNumber(selectedDate.slice(8, 10));
   }, [selectedDate]);
 
   return (
@@ -28,16 +60,16 @@ export default function Dates() {
         <Section1
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-          monthNumber={monthNumber}
-          yearNumber={yearNumber}
-          dayNumber={dayNumber}
+          selectedMonthNumber={selectedMonthNumber}
+          selectedYearNumber={selectedYearNumber}
+          selectedDayNumber={selectedDayNumber}
         />
         <Section2
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-          monthNumber={monthNumber}
-          yearNumber={yearNumber}
-          dayNumber={dayNumber}
+          selectedMonthNumber={selectedMonthNumber}
+          selectedYearNumber={selectedYearNumber}
+          selectedDayNumber={selectedDayNumber}
         />
       </main>
     </>
@@ -47,13 +79,39 @@ export default function Dates() {
 function Section1({
   selectedDate,
   setSelectedDate,
-  monthNumber,
-  yearNumber,
-  dayNumber,
+  selectedMonthNumber,
+  selectedYearNumber,
+  selectedDayNumber,
 }) {
   const handleDateChange = (e) => {
     // console.log(e.target.value); 2023-08-23
     setSelectedDate(e.target.value);
+  };
+
+  const handleIncDate = (e) => {
+    let day = selectedDayNumber;
+    if (day < daysInMonth(selectedMonthNumber, selectedYearNumber)) {
+      day = Number(selectedDayNumber) + 1;
+      if (day.toString().length == 1) {
+        day = "0" + day;
+      } else {
+        day.toString();
+      }
+      setSelectedDate(`${selectedYearNumber}-${selectedMonthNumber}-${day}`);
+    }
+  };
+
+  const handleDecDate = (e) => {
+    let day = selectedDayNumber;
+    if (day > 1) {
+      day = Number(selectedDayNumber) - 1;
+      if (day.toString().length == 1) {
+        day = "0" + day;
+      } else {
+        day.toString();
+      }
+      setSelectedDate(`${selectedYearNumber}-${selectedMonthNumber}-${day}`);
+    }
   };
 
   return (
@@ -67,14 +125,20 @@ function Section1({
             onChange={handleDateChange}
           />
         </div>
-        <aside className="flex gap-3">
-          <button className="btn btn-sm bg-inherit hover:bg-inherit">
-            <Icon icon="fluent:ios-arrow-24-filled" rotate={2} />
+        <aside className="flex">
+          <button
+            onClick={handleIncDate}
+            className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
+          >
+            <Icon icon="fluent:ios-arrow-24-filled" width="20" rotate={2} />
           </button>
-          <button className="btn btn-sm bg-inherit hover:bg-inherit">
-            <Icon icon="fluent:ios-arrow-24-filled" />
+          <button
+            onClick={handleDecDate}
+            className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
+          >
+            <Icon icon="fluent:ios-arrow-24-filled" width="20" />
           </button>
-          <div className="font-semibold">تقويم المواعيد</div>
+          <div className="font-semibold ml-2">تقويم المواعيد</div>
         </aside>
       </section>
     </>
@@ -84,22 +148,43 @@ function Section1({
 function Section2({
   selectedDate,
   setSelectedDate,
-  monthNumber,
-  yearNumber,
-  dayNumber,
+  selectedMonthNumber,
+  selectedYearNumber,
+  selectedDayNumber,
 }) {
-  const [activeDay, setActiveDay] = useState(7);
+  const daysInMon = daysInMonth(selectedMonthNumber, selectedYearNumber);
+  let allMonthDays = [];
+
+  // let i = formatDate(new Date()).slice(8, 10);
+  let i = 0;
+  for (i; i < daysInMon; i++) {
+    // let privateDayNum = i;
+    let privateDayNum = i + 1;
+    if (privateDayNum.toString().length === 1) {
+      privateDayNum = "0" + privateDayNum;
+    }
+
+    allMonthDays.push(
+      <DayGenerator
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedMonthNumber={selectedMonthNumber}
+        selectedYearNumber={selectedYearNumber}
+        selectedDayNumber={selectedDayNumber}
+        privateDayNumber={privateDayNum.toString()}
+      />
+    );
+  }
 
   return (
     <>
-      <section className="flex justify-center items-center w-auto overflow-auto">
-        <DayGenerator
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          monthNumber={monthNumber}
-          yearNumber={yearNumber}
-          dayNumber={dayNumber}
-        />
+      <section
+        id="DayContainer"
+        className="flex justify-between items-center gap-1 overflow-auto DirectionRTL"
+      >
+        {allMonthDays.map((item) => (
+          <span key={uuidv4()}>{item}</span>
+        ))}
       </section>
     </>
   );
@@ -108,41 +193,51 @@ function Section2({
 function DayGenerator({
   selectedDate,
   setSelectedDate,
-  monthNumber,
-  yearNumber,
-  dayNumber,
+  selectedMonthNumber,
+  selectedYearNumber,
+  selectedDayNumber,
+  privateDayNumber,
 }) {
   return (
     <>
       <main
+        onClick={() => {
+          setSelectedDate(
+            `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}` //fdsa;lkjfa;lskdfj;laskdjf;lkasdjf;lksdfjlfjs;dklfjlksdfj;laksdjf;lksjdf;lkafjsd;lkfj;asldkjf;laksdjf
+          );
+        }}
         className={
-          true
-            ? "flex flex-col items-center gap-5 px-3 py-3 rounded-md hover:cursor-pointer bg-yellow-300"
-            : "flex flex-col items-center gap-5 px-3 py-3 rounded-md hover:cursor-pointer"
+          privateDayNumber == selectedDayNumber
+            ? "flex flex-col items-center gap-5 px-1 py-3 rounded-md hover:cursor-pointer bg-yellow-300"
+            : "flex flex-col items-center gap-5 px-1 py-3 rounded-md hover:cursor-pointer"
         }
         // onClick={() => setActiveDay(dayID)}
       >
         <h1
           className={
-            true
-              ? "text-xs font-bold text-black"
-              : "text-xs font-bold text-[#B4B4B4]"
+            privateDayNumber == selectedDayNumber
+              ? "text-[10px] font-bold text-black"
+              : "text-[10px] font-bold text-[#B4B4B4]"
           }
         >
-          {getDayName(new Date(`${selectedDate}`))}
+          {getDayName(
+            new Date(
+              `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
+            )
+          )}
         </h1>
         <p
           className={
-            true
-              ? "flex justify-center items-center w-10 h-10 rounded-full bg-black text-white"
-              : "flex justify-center items-center w-10 h-10 rounded-full"
+            privateDayNumber == selectedDayNumber
+              ? "flex justify-center items-center w-8 h-8 rounded-full text-[15px] bg-black text-white"
+              : "flex justify-center items-center w-8 h-8 rounded-full text-[15px]"
           }
         >
-          {dayNumber}
+          {privateDayNumber}
         </p>
-        <span className="flex justify-center gap-3">
-          <div className="badge badge-xs bg-[#FC9A00] border-[#FC9A00]"></div>
-          <div className="badge badge-xs bg-[#FF4B55] border-[#FF4B55]"></div>
+        <span className="flex justify-center gap-1">
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FC9A00]"></div>
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FF4B55]"></div>
         </span>
       </main>
     </>

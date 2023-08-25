@@ -5,7 +5,7 @@ import Comments from "./Comments";
 export default function UsersDateContainer() {
   return (
     <>
-      <main className="flex flex-col gap-5 p-5 mt-3 mr-3 basis-[20%] rounded-lg bg-white">
+      <main className="flex flex-col gap-5 p-5 xl:mt-3 xl:mr-3 w-1/3 xl:w-auto rounded-lg bg-white">
         <Dates />
         <Comments />
       </main>

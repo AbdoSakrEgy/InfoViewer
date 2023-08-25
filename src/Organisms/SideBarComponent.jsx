@@ -5,9 +5,9 @@ import logo from "../assets/logo.png";
 
 export default function SideBarComponent() {
   return (
-    <main className="drawer xl:drawer-open drawer-end h-screen w-[5%] xl:w-[20%]">
+    <main className="drawer 2xl:drawer-open drawer-end h-screen w-[5%] 2xl:w-[20%]">
       <input id="sideBarDrawer" type="checkbox" className="drawer-toggle" />
-      <section className="drawer-content bg-[#f6f6f6] xl:hidden">
+      <section className="drawer-content 2xl:hidden">
         <label
           htmlFor="sideBarDrawer"
           className="drawer-button w-full flex justify-center"
@@ -24,7 +24,7 @@ export default function SideBarComponent() {
       </section>
       <section className="drawer-side z-40">
         <label htmlFor="sideBarDrawer" className="drawer-overlay"></label>
-        <aside className="h-full w-2/3 xl:w-full bg-white">
+        <aside className="h-full w-2/3 2xl:w-full bg-white">
           <DrawerSideContent />
         </aside>
       </section>
