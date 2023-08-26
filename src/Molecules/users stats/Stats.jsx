@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import "rsuite/dist/rsuite.min.css";
+import { Progress } from "rsuite";
 
 export default function Stats() {
   return (
@@ -29,25 +31,34 @@ export default function Stats() {
   );
 }
 
+// ===========================================================
 function RadialProgress() {
+  const style1 = {
+    width: 150,
+    display: "inline-block",
+  };
+  const style2 = {
+    width: 100,
+    display: "inline-block",
+  };
+
   return (
-    <>
-      <main>
-        <div
-          className="radial-progress text-[#0771DE]"
-          style={{ "--value": 70, "--size": "7rem", "--thickness": "8px" }}
-        >
-          <div
-            className="radial-progress text-[#FDB841]"
-            style={{ "--value": 40, "--size": "4rem", "--thickness": "8px" }}
-          >
-            <aside className="flex flex-col">
-              <span className="font-bold text-black">158</span>
-              <span className="text-xs text-gray-400">جهاز</span>
-            </aside>
-          </div>
+    <main>
+      <div style={style1} className="relative">
+        <Progress.Circle percent={70} strokeColor="#0771DE" showInfo={false} />
+        <div style={style2} className="absolute RadialProgressChild">
+          <Progress.Circle
+            percent={30}
+            strokeColor="#FDB841"
+            showInfo={false}
+            gapPosition={"right"}
+          />
         </div>
-      </main>
-    </>
+        <section className="flex flex-col items-center absolute RadialProgressChild">
+          <span className="text-lg font-bold">158</span>
+          <span className="text-xs text-[#6B7181]">جهاز</span>
+        </section>
+      </div>
+    </main>
   );
 }

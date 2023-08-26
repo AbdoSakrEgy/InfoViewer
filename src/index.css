@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dates.jsx */
+.DirectionRTL::-webkit-scrollbar {
+  display: none;
+}
 .DirectionRTL {
   direction: rtl; /* <-- the trick */
+}
+
+/* Stats.jsx */
+.RadialProgressChild {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -180,7 +180,7 @@ function Section2({
     <>
       <section
         id="DayContainer"
-        className="flex justify-between items-center gap-1 overflow-auto DirectionRTL"
+        className="flex justify-between items-center gap-1 overflow-auto border-b-2 border-dashed pb-3 DirectionRTL"
       >
         {allMonthDays.map((item) => (
           <span key={uuidv4()}>{item}</span>
@@ -203,21 +203,21 @@ function DayGenerator({
       <main
         onClick={() => {
           setSelectedDate(
-            `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}` //fdsa;lkjfa;lskdfj;laskdjf;lkasdjf;lksdfjlfjs;dklfjlksdfj;laksdjf;lksjdf;lkafjsd;lkfj;asldkjf;laksdjf
+            `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
           );
         }}
         className={
           privateDayNumber == selectedDayNumber
-            ? "flex flex-col items-center gap-5 px-1 py-3 rounded-md hover:cursor-pointer bg-yellow-300"
-            : "flex flex-col items-center gap-5 px-1 py-3 rounded-md hover:cursor-pointer"
+            ? "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer bg-[#FEEE00]"
+            : "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer"
         }
         // onClick={() => setActiveDay(dayID)}
       >
         <h1
           className={
             privateDayNumber == selectedDayNumber
-              ? "text-[10px] font-bold text-black"
-              : "text-[10px] font-bold text-[#B4B4B4]"
+              ? "flex justify-center items-center h-3 text-[10px] font-bold text-black"
+              : "flex justify-center items-center h-3 text-[10px] font-bold text-[#B4B4B4]"
           }
         >
           {getDayName(
