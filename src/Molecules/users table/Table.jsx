@@ -1,10 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import FileImage1 from "../../assets/FileImage1.png";
 import FileImage2 from "../../assets/FileImage2.png";
+import { Dropdown } from "rsuite";
+import { Pagination } from "rsuite";
+import { Tooltip, Whisper, Button } from "rsuite";
+import { Checkbox } from "rsuite";
 
 export default function Table() {
   const name = "عبدالرحيم السيد عبدالرحيم صقر";
+  const columns = [
+    "",
+    "ملفات",
+    "أيام العمل",
+    "البريد الإلكتروني",
+    "الاسم بالكامل",
+    "id رقم ال",
+  ];
+  const rows = [
+    {
+      email: "abdulrahimsakr01@gmail.com",
+      name: "عبدالرحيم السيد",
+      id: "567",
+    },
+    {
+      email: "anotherAbdoEmail@gmail.com",
+      name: "عبدالرحيم السيد عبدالرحيم صقر",
+      id: "341",
+    },
+    {
+      email: "abdulrahimsakr01@gmail.com",
+      name: "عبدالرحيم السيد",
+      id: "5637",
+    },
+    {
+      email: "anotherAbdoEmail@gmail.com",
+      name: "عبدالرحيم السيد عبدالرحيم صقر",
+      id: "3241",
+    },
+    {
+      email: "abdulrahimsakr01@gmail.com",
+      name: "عبدالرحيم السيد",
+      id: "5657",
+    },
+    {
+      email: "anotherAbdoEmail@gmail.com",
+      name: "عبدالرحيم السيد عبدالرحيم صقر",
+      id: "371",
+    },
+  ];
+
   return (
     <>
       <main>
@@ -13,9 +58,10 @@ export default function Table() {
             <thead>
               <tr>
                 <th className="text-opacity-70 bg-[#F6F6F6] text-[#5A5A67]">
-                  <button className="btn btn-xs bg-[#2385EA] text-white hover:bg-[#2385EA]">
+                  {/* <button className="btn btn-xs bg-[#2385EA] text-white hover:bg-[#2385EA]">
                     <Icon icon="ep:setting" />
-                  </button>
+                  </button> */}
+                  <CustomTooltip placement="rightStart" />
                 </th>
                 <th className="text-opacity-70 bg-[#F6F6F6] text-[#5A5A67]">
                   ملفات
@@ -35,38 +81,44 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <button className="btn bg-inherit hover:bg-inherit border-none">
-                    <Icon icon="simple-line-icons:options-vertical" />
-                  </button>
-                </td>
-                <td>
-                  <File />
-                </td>
-                <td>
-                  <WorkDays />
-                </td>
-                <td>abdulrahimsakr01@gmail.com</td>
-                <td>
-                  <div className="tooltip hover:cursor-pointer" data-tip={name}>
-                    {name.length > 20 ? (
-                      <span>...{name.slice(0, 20)}</span>
+              {rows.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <button className="btn bg-inherit hover:bg-inherit border-none">
+                      <Icon icon="simple-line-icons:options-vertical" />
+                    </button>
+                  </td>
+                  <td>
+                    <File />
+                  </td>
+                  <td>
+                    <WorkDays />
+                  </td>
+                  <td>{item.email}</td>
+                  <td>
+                    {item.name.length > 20 ? (
+                      <div
+                        className="tooltip hover:cursor-pointer"
+                        data-tip={item.name}
+                      >
+                        <span>...{item.name.slice(0, 20)}</span>
+                      </div>
                     ) : (
-                      { name }
+                      <span>{item.name}</span>
                     )}
-                  </div>
-                </td>
-                <td>1</td>
-              </tr>
+                  </td>
+                  <td>{item.id}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
+        <FooterTable />
       </main>
     </>
   );
 }
-
+// ==========================================================
 function WorkDays({ days }) {
   return (
     <>
@@ -96,7 +148,7 @@ function WorkDays({ days }) {
     </>
   );
 }
-
+// ==========================================================
 function File() {
   return (
     <>
@@ -110,5 +162,89 @@ function File() {
         </section>
       </main>
     </>
+  );
+}
+// ==========================================================
+function FooterTable() {
+  const [activePage, setActivePage] = useState(1);
+
+  return (
+    <main className="flex justify-between items-start mt-5 h-60">
+      <section>
+        <Pagination
+          next
+          prev
+          maxButtons={5}
+          total={100}
+          limit={10}
+          activePage={activePage}
+          onChangePage={setActivePage}
+        />
+      </section>
+      <section className="flex justify-end items-center gap-2 text-xs">
+        <span>250</span>
+        <span>من أصل</span>
+        <Dropdown title="20" size="xs">
+          <Dropdown.Item>30</Dropdown.Item>
+          <Dropdown.Item>40</Dropdown.Item>
+          <Dropdown.Item>50</Dropdown.Item>
+        </Dropdown>
+        <span>عرض</span>
+      </section>
+    </main>
+  );
+}
+// ==========================================================
+function CustomTooltip({ placement }) {
+  const myStyle = {
+    color: "black",
+    backgroundColor: "white",
+    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+  };
+
+  return (
+    <Whisper
+      trigger="click"
+      placement={placement}
+      controlId={`control-id-${placement}`}
+      speaker={
+        <Tooltip style={myStyle}>
+          <main className="">
+            <p className="text-xs font-semibold text-right py-3">
+              التحكم في الجدول
+            </p>
+            <hr className="my-0" />
+            <span className="flex justify-between items-center w-40">
+              <Checkbox defaultChecked />
+              <p className="text-[#6C6C6C]">id رقم ال</p>
+            </span>
+            <hr className="my-0" />
+            <span className="flex justify-between items-center w-40">
+              <Checkbox defaultChecked />
+              <p className="text-[#6C6C6C]">الاسم الاول</p>
+            </span>
+            <hr className="my-0" />
+            <span className="flex justify-between items-center w-40">
+              <Checkbox defaultChecked />
+              <p className="text-[#6C6C6C]">البريد الإلكتروني</p>
+            </span>
+            <hr className="my-0" />
+            <span className="flex justify-between items-center w-40">
+              <Checkbox defaultChecked />
+              <p className="text-[#6C6C6C]">أيام العمل</p>
+            </span>
+            <hr className="my-0" />
+            <span className="flex justify-between items-center w-40">
+              <Checkbox defaultChecked />
+              <p className="text-[#6C6C6C]">الملفات</p>
+            </span>
+          </main>
+        </Tooltip>
+      }
+    >
+      <button className="btn btn-xs bg-[#2385EA] text-white hover:bg-[#2385EA]">
+        <Icon icon="ep:setting" />
+      </button>
+    </Whisper>
   );
 }

@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 
 export default function UserDashboard() {
   return (
-    <main className="w-[80%] overflow-auto w-full">
+    <main className="overflow-auto w-full">
       <header className="2xl:h-20 bg-white"></header>
       <section className="flex flex-row justify-between gap-0 w-full bg-[#F6F6F6]">
         <div className="drawer xl:drawer-open flex justify-end w-[30%]">

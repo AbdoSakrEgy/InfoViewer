@@ -14,8 +14,8 @@ export default function UsersTableContainer() {
           <Search />
         </header>
         <aside className="">
-          {/* <Table /> */}
-          <TableComponent />
+          <Table />
+          {/* <TableComponent /> */}
           {/* <Table1 /> */}
         </aside>
       </main>
@@ -23,7 +23,6 @@ export default function UsersTableContainer() {
   );
 }
 // ==========================================================
-
 const Table1 = () => {
   const [columns, setColumns] = useState(["Column 1", "Column 2", "Column 3"]);
   const [draggedColumn, setDraggedColumn] = useState(null);
