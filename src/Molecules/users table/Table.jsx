@@ -58,9 +58,6 @@ export default function Table() {
             <thead>
               <tr>
                 <th className="text-opacity-70 bg-[#F6F6F6] text-[#5A5A67]">
-                  {/* <button className="btn btn-xs bg-[#2385EA] text-white hover:bg-[#2385EA]">
-                    <Icon icon="ep:setting" />
-                  </button> */}
                   <CustomTooltip placement="rightStart" />
                 </th>
                 <th className="text-opacity-70 bg-[#F6F6F6] text-[#5A5A67]">
@@ -169,7 +166,7 @@ function FooterTable() {
   const [activePage, setActivePage] = useState(1);
 
   return (
-    <main className="flex justify-between items-start mt-5 h-60">
+    <main className="flex flex-col xl:flex-row xl:justify-between justify-start xl:items-start items-center mt-5 h-60">
       <section>
         <Pagination
           next

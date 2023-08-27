@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 export default function Search() {
   return (
     <>
-      <main className="flex gap-2">
+      <main className="flex flex-col gap-2 xl:flex-row xl:justify-between">
         <OrderComponent />
         <FilterComponent />
         <SearchComponent />
@@ -25,7 +25,7 @@ const SearchComponent = () => {
       <div className="relative h-full">
         <input
           type="text"
-          className="border border-gray-300 rounded-md h-full px-4 py-2 pr-10 focus:outline-none text-right"
+          className="border border-gray-300 rounded-md h-full px-4 py-2 pr-10 w-full focus:outline-none text-right"
           placeholder="...بحث عن"
           value={searchTerm}
           onChange={handleSearch}

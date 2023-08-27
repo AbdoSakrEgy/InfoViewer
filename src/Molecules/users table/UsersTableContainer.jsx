@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import Search from "./Search";
 import Table from "./Table";
 import TableComponent from "./TableComponent";
+import TanStackTable from "./TanStackTable";
 
 export default function UsersTableContainer() {
   return (
     <>
-      <main className="mx-5 overflow-hidden">
-        <header className="flex justify-between mb-5">
+      <main className="mx-5 overflow-hidden w-full">
+        <header className="flex flex-col gap-3 xl:flex-row xl:justify-between mb-5">
           <button className="btn bg-yellow-300 hover:bg-yellow-300">
             إضافة جديد +
           </button>
           <Search />
         </header>
         <aside className="">
+          {/* <TanStackTable /> */}
           <Table />
           {/* <TableComponent /> */}
           {/* <Table1 /> */}
