@@ -3,11 +3,12 @@ import Search from "./Search";
 import Table from "./Table";
 import TableComponent from "./TableComponent";
 import TanStackTable from "./TanStackTable";
+import ReactSuiteTable from "./ReactSuiteTable";
 
 export default function UsersTableContainer() {
   return (
     <>
-      <main className="mx-5 overflow-hidden w-full">
+      <main className="mx-5 overflow-hidden w-full xl:w-auto">
         <header className="flex flex-col gap-3 xl:flex-row xl:justify-between mb-5">
           <button className="btn bg-yellow-300 hover:bg-yellow-300">
             إضافة جديد +
@@ -15,6 +16,7 @@ export default function UsersTableContainer() {
           <Search />
         </header>
         <aside className="">
+          {/* <ReactSuiteTable /> */}
           {/* <TanStackTable /> */}
           <Table />
           {/* <TableComponent /> */}
