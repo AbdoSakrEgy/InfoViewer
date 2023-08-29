@@ -15,10 +15,10 @@ export default function UsersTableContainer() {
           </button>
           <Search />
         </header>
-        <aside className="">
-          {/* <ReactSuiteTable /> */}
+        <aside>
+          <ReactSuiteTable />
           {/* <TanStackTable /> */}
-          <Table />
+          {/* <Table /> */}
           {/* <TableComponent /> */}
           {/* <Table1 /> */}
         </aside>
