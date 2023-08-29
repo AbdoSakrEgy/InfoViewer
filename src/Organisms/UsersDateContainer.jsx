@@ -1,6 +1,6 @@
 import React from "react";
-import Dates from "./Dates";
-import Comments from "./Comments";
+import Dates from "../Molecules/users date/Dates";
+import Comments from "../Molecules/users date/Comments";
 
 export default function UsersDateContainer() {
   return (

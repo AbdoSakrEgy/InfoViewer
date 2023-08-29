@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import FileImage1 from "../../assets/FileImage1.png";
 import { Pagination, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
-import { Tooltip, Whisper, Button } from "rsuite";
+import { Tooltip, Whisper } from "rsuite";
 import { Dropdown } from "rsuite";
+import SettingsButton from "./SettingsButton";
+import WorkDays from "./WorkDays";
+import FileOfRow from "./FileOfRow";
 
 const users = [
   {
@@ -63,7 +65,7 @@ export default function ReactSuiteTable() {
   const [showEmail, setShowEmail] = useState(true);
   const [showWorkDays, setShowWorkDays] = useState(true);
   const [showFile, setShowFile] = useState(true);
-
+  // pagination
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
 
@@ -77,10 +79,52 @@ export default function ReactSuiteTable() {
     const end = start + limit;
     return i >= start && i < end;
   });
+  // sorting
+  const [sortColumn, setSortColumn] = React.useState();
+  const [sortType, setSortType] = React.useState();
+  const [loading, setLoading] = React.useState(false);
+
+  const getData = () => {
+    if (sortColumn && sortType) {
+      return data.sort((a, b) => {
+        let x = a[sortColumn];
+        let y = b[sortColumn];
+        if (typeof x === "string") {
+          x = x.charCodeAt();
+        }
+        if (typeof y === "string") {
+          y = y.charCodeAt();
+        }
+        if (sortType === "asc") {
+          return x - y;
+        } else {
+          return y - x;
+        }
+      });
+    }
+    return data;
+  };
+
+  const handleSortColumn = (sortColumn, sortType) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSortColumn(sortColumn);
+      setSortType(sortType);
+    }, 500);
+  };
 
   return (
     <main>
-      <Table data={data} autoHeight rowHeight={60}>
+      <Table
+        data={getData()}
+        autoHeight
+        rowHeight={60}
+        sortColumn={sortColumn}
+        sortType={sortType}
+        onSortColumn={handleSortColumn}
+        loading={loading}
+      >
         <Column align="left" flexGrow={0.5} hidden>
           <HeaderCell>
             <SettingsButton
@@ -108,7 +152,7 @@ export default function ReactSuiteTable() {
           <Column align="right" flexGrow={1}>
             <HeaderCell>ملفات</HeaderCell>
             <Cell dataKey="file">
-              <File />
+              <FileOfRow />
             </Cell>
           </Column>
         ) : null}
@@ -130,7 +174,7 @@ export default function ReactSuiteTable() {
         ) : null}
 
         {showName ? (
-          <Column align="right" flexGrow={1}>
+          <Column align="right" flexGrow={1} sortable>
             <HeaderCell>الاسم بالكامل</HeaderCell>
             <Cell dataKey="name">
               {(rowData) => {
@@ -160,10 +204,7 @@ export default function ReactSuiteTable() {
           </Column>
         ) : null}
       </Table>
-      <div
-        style={{ padding: 20 }}
-        className="flex justify-between items-start"
-      >
+      <div style={{ padding: 20 }} className="flex justify-between items-start">
         <Pagination
           prev
           next
@@ -207,199 +248,3 @@ export default function ReactSuiteTable() {
   );
 }
 // ==========================================================
-function SettingsButton({
-  placement,
-  showID,
-  showName,
-  showEmail,
-  showWorkDays,
-  showFile,
-  setShowID,
-  setShowName,
-  setShowEmail,
-  setShowWorkDays,
-  setShowFile,
-}) {
-  const myStyle = {
-    color: "black",
-    backgroundColor: "white",
-    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-  };
-
-  return (
-    <Whisper
-      trigger="click"
-      placement={placement}
-      controlId={`control-id-${placement}`}
-      speaker={
-        <Tooltip style={myStyle}>
-          <main className="py-3 w-40">
-            <p className="text-xs font-semibold text-right">التحكم في الجدول</p>
-
-            <hr className="my-3" />
-            <input
-              id="idCheckbox"
-              checked={showID}
-              type="checkbox"
-              onChange={(e) => setShowID(e.target.checked)}
-            />
-            <label
-              htmlFor="idCheckbox"
-              className="hover:cursor-pointer  flex justify-between"
-            >
-              <p>id رقم ال</p>
-            </label>
-
-            <hr className="my-3" />
-            <input
-              id="nameCheckbox"
-              checked={showName}
-              type="checkbox"
-              onChange={(e) => setShowName(e.target.checked)}
-            />
-            <label
-              htmlFor="nameCheckbox"
-              className="hover:cursor-pointer  flex justify-between"
-            >
-              <p>الاسم بالكامل</p>
-            </label>
-
-            <hr className="my-3" />
-            <input
-              id="emailCheckbox"
-              checked={showEmail}
-              type="checkbox"
-              onChange={(e) => setShowEmail(e.target.checked)}
-            />
-            <label
-              htmlFor="emailCheckbox"
-              className="hover:cursor-pointer  flex justify-between"
-            >
-              <p>البريد الإلكتروني</p>
-            </label>
-
-            <hr className="my-3" />
-            <input
-              id="workDaysCheckbox"
-              checked={showWorkDays}
-              type="checkbox"
-              onChange={(e) => setShowWorkDays(e.target.checked)}
-            />
-            <label
-              htmlFor="workDaysCheckbox"
-              className="hover:cursor-pointer  flex justify-between"
-            >
-              <p>أيام العمل</p>
-            </label>
-
-            <hr className="my-3" />
-            <input
-              id="fileCheckbox"
-              checked={showFile}
-              type="checkbox"
-              onChange={(e) => setShowFile(e.target.checked)}
-            />
-            <label
-              htmlFor="fileCheckbox"
-              className="hover:cursor-pointer flex justify-between"
-            >
-              <p>الملفات</p>
-            </label>
-          </main>
-        </Tooltip>
-      }
-    >
-      <button className="btn btn-xs bg-[#2385EA] text-white hover:bg-[#2385EA]">
-        <Icon icon="ep:setting" />
-      </button>
-    </Whisper>
-  );
-}
-// ==========================================================
-function WorkDays({ workDays }) {
-  return (
-    <>
-      <main className="flex justify-between gap-1">
-        <span
-          className={
-            workDays.find((element) => element === 7)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          ج
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 6)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          خ
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 5)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          ا
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 4)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          ث
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 3)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          ن
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 2)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          ح
-        </span>
-        <span
-          className={
-            workDays.find((element) => element === 1)
-              ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-              : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
-          }
-        >
-          س
-        </span>
-      </main>
-    </>
-  );
-}
-// ==========================================================
-function File() {
-  return (
-    <>
-      <main className="flex justify-end gap-1">
-        <section className="flex flex-col justify-end font-semibold">
-          <p>png.اسم الملف</p>
-          <span className="text-xs text-[#BBBEC2]">9mb</span>
-        </section>
-        <section className="rounded-md">
-          <img src={FileImage1} alt="FileImage1" />
-        </section>
-      </main>
-    </>
-  );
-}

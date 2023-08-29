@@ -1,7 +1,7 @@
 import React from "react";
-import UserData from "./UserData";
-import Stats from "./Stats";
-import AdditionalStats from "./AdditionalStats";
+import UserData from "../Molecules/users stats/UserData";
+import Stats from "../Molecules/users stats/Stats";
+import AdditionalStats from "../Molecules/users stats/AdditionalStats";
 
 export default function UsersStatsContainer() {
   return (

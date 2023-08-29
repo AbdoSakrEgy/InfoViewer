@@ -1,7 +1,7 @@
 import React from "react";
-import UsersDateContainer from "../Molecules/users date/UsersDateContainer";
-import UsersStatsContainer from "../Molecules/users stats/UsersStatsContainer";
-import UsersTableContainer from "../Molecules/users table/UsersTableContainer";
+import UsersDateContainer from "../Organisms/UsersDateContainer";
+import UsersStatsContainer from "../Organisms/UsersStatsContainer";
+import UsersTableContainer from "../Organisms/UsersTableContainer";
 import { Icon } from "@iconify/react";
 
 export default function UserDashboard() {
