@@ -11,7 +11,7 @@ export default function AdditionalStats() {
         {/* 1 */}
         <header className="flex justify-between rounded-xl pr-3 bg-[#FF9A3E] text-white">
           <section>
-            <img src={MaskGroup1} alt="MaskGroup1" />
+            <img src={MaskGroup1} alt="MaskGroup1" className="h-full" />
           </section>
           <section className="flex flex-col justify-center gap-3">
             <aside className="text-right text-sm">قراءات ثانية</aside>
@@ -23,7 +23,7 @@ export default function AdditionalStats() {
         {/* 2 */}
         <header className="flex rounded-xl pr-3 bg-[#7661E2] text-white">
           <section>
-            <img src={MaskGroup2} alt="MaskGroup1" />
+            <img src={MaskGroup2} alt="MaskGroup1" className="h-full" />
           </section>
           <section className="flex flex-col justify-center gap-3">
             <aside className="text-right text-sm">قراءات ثانية</aside>
@@ -35,7 +35,7 @@ export default function AdditionalStats() {
         {/* 3 */}
         <header className="flex rounded-xl pr-3 bg-[#3DD598] text-white">
           <section>
-            <img src={MaskGroup3} alt="MaskGroup1" />
+            <img src={MaskGroup3} alt="MaskGroup1" className="h-full" />
           </section>
           <section className="flex flex-col justify-center gap-3">
             <aside className="text-right text-sm">قراءات ثانية</aside>

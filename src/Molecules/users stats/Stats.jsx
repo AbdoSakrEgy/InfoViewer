@@ -5,8 +5,8 @@ import { Progress } from "rsuite";
 export default function Stats() {
   return (
     <>
-      <main className="flex flex-col justify-between h-full w-60 p-3 bg-white">
-        <section className="text-right font-bold">إحصائيات</section>
+      <main className="flex flex-col justify-between gap-3 xl:gap-0 h-full xl:w-60 p-3 bg-white">
+        <section className="xl:text-right text-center font-bold">إحصائيات</section>
         <section className="flex justify-center items-center">
           <RadialProgress />
         </section>

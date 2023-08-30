@@ -204,7 +204,8 @@ export default function ReactSuiteTable() {
           </Column>
         ) : null}
       </Table>
-      <div style={{ padding: 20 }} className="flex justify-between items-start">
+      {/* pagination */}
+      <div style={{ padding: 20 }} className="flex flex-col items-center gap-3 xl:flex-row xl:justify-between xl:items-start">
         <Pagination
           prev
           next

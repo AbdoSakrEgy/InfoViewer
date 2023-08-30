@@ -7,8 +7,8 @@ import Ellipse3 from "../../assets/Ellipse3.png";
 export default function UserData() {
   return (
     <>
-      <main className="flex flex-col gap-5 p-3 h-full rounded-md w-80 bg-white">
-        <section className="flex justify-between gap-24 items-center">
+      <main className="flex flex-col gap-5 p-3 h-full rounded-md w-40 xl:w-80 bg-white">
+        <section className="flex flex-col xl:flex-row xl:justify-between xl:gap-24 gap-10 items-center">
           <span className="flex justify-center text-xs text-gray-400">
             <span>يونيو</span>
             <span>10</span>
@@ -19,7 +19,7 @@ export default function UserData() {
           <span className="font-bold">الشخص الأول</span>
         </section>
 
-        <section className="flex justify-between items-center">
+        <section className="flex flex-col xl:flex-row xl:justify-between xl:items-center xl:gap-0 gap-5">
           <div
             className="radial-progress text-[#3DD598]"
             style={{ "--value": "90", "--size": "9rem", "--thickness": "3px" }}

@@ -6,7 +6,7 @@ import AddNewUserButton from "../Molecules/users table/AddNewUserButton";
 export default function UsersTableContainer() {
   return (
     <>
-      <main className="mx-5 overflow-hidden w-full xl:w-auto">
+      <main className="xl:mx-5 overflow-hidden w-full xl:w-auto">
         <header className="flex flex-col gap-3 xl:flex-row xl:justify-between mb-5">
           <AddNewUserButton />
           <Search />
