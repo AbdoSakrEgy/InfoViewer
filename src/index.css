@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+  height: 100%;
+  overflow: auto;
+}
 /* Dates.jsx */
 .DirectionRTL::-webkit-scrollbar {
   display: none;

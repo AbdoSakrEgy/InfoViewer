@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import UserDashboard from "../Pages/UserDashboard";
-import SideBarComponent from "../Organisms/SideBarComponent";
+import SidebarContainer from "../Organisms/SidebarContainer";
 
 export default function Root() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   return (
-    <main className="flex justify-center items-start overflow-auto bg-[#f6f6f6] 2xl:bg-white">
+    <main className="flex justify-center items-stretch overflow-auto bg-[#f6f6f6] 2xl:bg-white">
       <UserDashboard />
-      <SideBarComponent />
+      <SidebarContainer
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
     </main>
   );
 }
