@@ -19,7 +19,7 @@ const users = [
   },
   {
     id: "2",
-    name: "حسام أحمد محمد علي",
+    name: "عبدالرحيم صقر",
     email: "abdulrahimsakr01@gmailcom",
     workDays: [1, 2, 3, 5, 6],
     file: "",
@@ -27,7 +27,7 @@ const users = [
   },
   {
     id: "3",
-    name: "محمد علي بيه",
+    name: "طارق السيد عبدالرحيم صقر",
     email: "abdulrahimsakr01@gmailcom",
     workDays: [2, 3, 6],
     file: "",
@@ -35,7 +35,7 @@ const users = [
   },
   {
     id: "4",
-    name: "محمد علي بيه",
+    name: "عبدالرحيم صقر",
     email: "abdulrahimsakr01@gmailcom",
     workDays: [2, 3, 6],
     file: "",
@@ -43,7 +43,7 @@ const users = [
   },
   {
     id: "5",
-    name: "محمد علي بيه",
+    name: "عبدالرحيم صقر",
     email: "abdulrahimsakr01@gmailcom",
     workDays: [2, 3, 6],
     file: "",
@@ -51,7 +51,7 @@ const users = [
   },
   {
     id: "6",
-    name: "محمد علي بيه",
+    name: "عبدالرحيم صقر",
     email: "abdulrahimsakr01@gmailcom",
     workDays: [2, 3, 6],
     file: "",
@@ -205,7 +205,10 @@ export default function ReactSuiteTable() {
         ) : null}
       </Table>
       {/* pagination */}
-      <div style={{ padding: 20 }} className="flex flex-col items-center gap-3 xl:flex-row xl:justify-between xl:items-start">
+      <div
+        style={{ padding: 20 }}
+        className="flex flex-col items-center gap-3 xl:flex-row xl:justify-between xl:items-start"
+      >
         <Pagination
           prev
           next

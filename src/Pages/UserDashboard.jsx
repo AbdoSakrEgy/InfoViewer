@@ -14,12 +14,6 @@ export default function UserDashboard() {
           <div className="drawer-content flex justify-end w-full xl:hidden">
             {/* Page content here */}
             <label htmlFor="my-drawer-2">
-              {/* <Icon
-                icon="material-symbols:keyboard-arrow-up-rounded"
-                rotate={1}
-                width={40}
-                className="rounded-full bg-yellow-300"
-              /> */}
               <div className="flex items-center h-screen w-10 fixed top-0 z-40 shadow-xl hover:cursor-pointer bg-white">
                 <Icon
                   icon="material-symbols:keyboard-arrow-up-rounded"
