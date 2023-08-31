@@ -221,7 +221,7 @@ export default function ReactSuiteTable() {
           onChangePage={setPage}
           onChangeLimit={handleChangeLimit}
         />
-        <section className="flex justify-between items-start gap-2 h-40">
+        <section className="flex justify-between items-start gap-2 font-semibold h-40">
           <span>{users.length}</span>
           <span>من إصل</span>
           <Dropdown

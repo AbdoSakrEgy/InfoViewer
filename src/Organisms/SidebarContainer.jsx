@@ -11,15 +11,17 @@ export default function SidebarContainer({ isSidebarOpen, setIsSidebarOpen }) {
   return (
     <main
       className={`${
-        isSidebarOpen ? "xl:w-1/4 xl:relative w-[98%] absolute h-full top-0 bottom-0 right-0" : "w-20 relative"
+        isSidebarOpen
+          ? "xl:w-1/4 xl:relative w-full absolute top-0 bottom-0 right-0"
+          : "w-20 relative"
       } duration-300 z-40 bg-white text-white`}
     >
       <Icon
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         icon="material-symbols:keyboard-arrow-up-rounded"
         rotate={1}
-        className={`absolute top-16 -left-3 p-0 m-0 rounded-full hover:cursor-pointer text-black bg-yellow-300 ${
-          !isSidebarOpen && "rotate-180"
+        className={`absolute top-16 p-0 m-0 rounded-full hover:cursor-pointer text-black bg-yellow-300 ${
+          isSidebarOpen ? "left-0 xl:-left-3" : "rotate-180 -left-3"
         }`}
         width={20}
       />
