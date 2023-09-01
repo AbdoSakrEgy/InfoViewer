@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Pagination, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
@@ -7,57 +7,7 @@ import { Dropdown } from "rsuite";
 import SettingsButton from "./SettingsButton";
 import WorkDays from "./WorkDays";
 import FileOfRow from "./FileOfRow";
-
-const users = [
-  {
-    id: "1",
-    name: "عبدالرحيم السيد عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [1, 3, 5, 6],
-    file: "",
-    settings: "",
-  },
-  {
-    id: "2",
-    name: "عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [1, 2, 3, 5, 6],
-    file: "",
-    settings: "",
-  },
-  {
-    id: "3",
-    name: "طارق السيد عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [2, 3, 6],
-    file: "",
-    settings: "",
-  },
-  {
-    id: "4",
-    name: "عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [2, 3, 6],
-    file: "",
-    settings: "",
-  },
-  {
-    id: "5",
-    name: "عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [2, 3, 6],
-    file: "",
-    settings: "",
-  },
-  {
-    id: "6",
-    name: "عبدالرحيم صقر",
-    email: "abdulrahimsakr01@gmailcom",
-    workDays: [2, 3, 6],
-    file: "",
-    settings: "",
-  },
-];
+import { usersData, columnsData } from "./TableData";
 
 export default function ReactSuiteTable() {
   const [showID, setShowID] = useState(true);
@@ -66,74 +16,9 @@ export default function ReactSuiteTable() {
   const [showWorkDays, setShowWorkDays] = useState(true);
   const [showFile, setShowFile] = useState(true);
 
-  // defaultColumns
-  const [defaultColumns, setDefaultColumns] = useState([
-    {
-      id: 5,
-      flexGrow: 1,
-      label: "الملفات",
-      dataKey: "file",
-      // isShow: true,
-      isSortable: false,
-      isCellHasChild: true,
-      CellChild: <FileOfRow />,
-    },
-    {
-      id: 4,
-      flexGrow: 1,
-      label: "أيام العمل",
-      dataKey: "workDays",
-      // isShow: true,
-      isSortable: false,
-      isCellHasChild: true,
-      CellChild: (rowData) => <WorkDays workDays={rowData.workDays} />,
-    },
-    {
-      id: 3,
-      flexGrow: 1.5,
-      label: "البريد الإلكتروني",
-      dataKey: "email",
-      // isShow: true,
-      isSortable: false,
-      isCellHasChild: false,
-      CellChild: "",
-    },
-    {
-      id: 2,
-      flexGrow: 1,
-      label: "الإسم بالكامل",
-      dataKey: "name",
-      // isShow: true,
-      isSortable: true,
-      isCellHasChild: true,
-      CellChild: (rowData) => {
-        if (rowData.name.length > 20) {
-          return (
-            <Whisper
-              placement="top"
-              controlId="control-id-hover"
-              trigger="hover"
-              speaker={<Tooltip>{rowData.name}</Tooltip>}
-            >
-              <span>...{rowData.name.slice(0, 20)}</span>
-            </Whisper>
-          );
-        } else {
-          return <span>{rowData.name}</span>;
-        }
-      },
-    },
-    {
-      id: 1,
-      flexGrow: 0.5,
-      label: "id رقم ال",
-      dataKey: "id",
-      // isShow: true,
-      isSortable: false,
-      isCellHasChild: false,
-      CellChild: "",
-    },
-  ]);
+  // rows and columns
+  const users = usersData;
+  const [defaultColumns, setDefaultColumns] = useState(columnsData);
 
   // pagination
   const [limit, setLimit] = useState(5);
@@ -150,9 +35,9 @@ export default function ReactSuiteTable() {
     return i >= start && i < end;
   });
   // sorting
-  const [sortColumn, setSortColumn] = React.useState();
-  const [sortType, setSortType] = React.useState();
-  const [loading, setLoading] = React.useState(false);
+  const [sortColumn, setSortColumn] = useState();
+  const [sortType, setSortType] = useState();
+  const [loading, setLoading] = useState(false);
 
   const getData = () => {
     if (sortColumn && sortType) {
@@ -243,183 +128,100 @@ export default function ReactSuiteTable() {
           switch (column.id) {
             case 1:
               return showID ? (
-                column.isSortable ? (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    sortable
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                    hidden
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                ) : (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                )
+                <Column
+                  align="right"
+                  flexGrow={column.flexGrow}
+                  key={index}
+                  draggable="true"
+                  onDragStart={(e) => dragStart(e, index)}
+                  onDragEnter={(e) => dragEnter(e, index)}
+                  onDragEnd={drop}
+                >
+                  <HeaderCell>{column.label}</HeaderCell>
+                  <Cell dataKey={column.dataKey} />
+                </Column>
               ) : null;
             case 2:
               return showName ? (
-                column.isSortable ? (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    sortable
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                    hidden
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                ) : (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                )
+                <Column
+                  align="right"
+                  flexGrow={column.flexGrow}
+                  key={index}
+                  sortable
+                  draggable="true"
+                  onDragStart={(e) => dragStart(e, index)}
+                  onDragEnter={(e) => dragEnter(e, index)}
+                  onDragEnd={drop}
+                >
+                  <HeaderCell>{column.label}</HeaderCell>
+                  <Cell dataKey={column.dataKey}>
+                    {(rowData) => {
+                      if (rowData.name.length > 20) {
+                        return (
+                          <Whisper
+                            placement="top"
+                            controlId="control-id-hover"
+                            trigger="hover"
+                            speaker={<Tooltip>{rowData.name}</Tooltip>}
+                          >
+                            <span>...{rowData.name.slice(0, 20)}</span>
+                          </Whisper>
+                        );
+                      } else {
+                        return <span>{rowData.name}</span>;
+                      }
+                    }}
+                  </Cell>
+                </Column>
               ) : null;
             case 3:
               return showEmail ? (
-                column.isSortable ? (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    sortable
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                    hidden
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                ) : (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                )
+                <Column
+                  align="right"
+                  flexGrow={column.flexGrow}
+                  key={index}
+                  draggable="true"
+                  onDragStart={(e) => dragStart(e, index)}
+                  onDragEnter={(e) => dragEnter(e, index)}
+                  onDragEnd={drop}
+                >
+                  <HeaderCell>{column.label}</HeaderCell>
+                  <Cell dataKey={column.dataKey} />
+                </Column>
               ) : null;
             case 4:
               return showWorkDays ? (
-                column.isSortable ? (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    sortable
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                    hidden
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                ) : (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                )
+                <Column
+                  align="right"
+                  flexGrow={column.flexGrow}
+                  key={index}
+                  draggable="true"
+                  onDragStart={(e) => dragStart(e, index)}
+                  onDragEnter={(e) => dragEnter(e, index)}
+                  onDragEnd={drop}
+                >
+                  <HeaderCell>{column.label}</HeaderCell>
+                  <Cell dataKey={column.dataKey}>
+                    {(rowData) => <WorkDays workDays={rowData.workDays} />}
+                  </Cell>
+                </Column>
               ) : null;
             case 5:
               return showFile ? (
-                column.isSortable ? (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    sortable
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                    hidden
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                ) : (
-                  <Column
-                    align="right"
-                    flexGrow={column.flexGrow}
-                    key={index}
-                    draggable="true"
-                    onDragStart={(e) => dragStart(e, index)}
-                    onDragEnter={(e) => dragEnter(e, index)}
-                    onDragEnd={drop}
-                  >
-                    <HeaderCell>{column.label}</HeaderCell>
-                    <Cell dataKey={column.dataKey}>
-                      {column.isCellHasChild ? column.CellChild : null}
-                    </Cell>
-                  </Column>
-                )
+                <Column
+                  align="right"
+                  flexGrow={column.flexGrow}
+                  key={index}
+                  draggable="true"
+                  onDragStart={(e) => dragStart(e, index)}
+                  onDragEnter={(e) => dragEnter(e, index)}
+                  onDragEnd={drop}
+                >
+                  <HeaderCell>{column.label}</HeaderCell>
+                  <Cell dataKey={column.dataKey}>
+                    <FileOfRow />
+                  </Cell>
+                </Column>
               ) : null;
           }
         })}

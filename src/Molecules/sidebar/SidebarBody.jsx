@@ -10,7 +10,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
 
   return (
     <main
-      className={`flex flex-col justify-end gap-10 text-right text-sm mt-14 py-5 border-t ${
+      className={`flex flex-col justify-end gap-10 text-right text-sm mt-14 py-5 border-t bg-white ${
         isSidebarOpen && "pl-10 "
       } text-black`}
     >

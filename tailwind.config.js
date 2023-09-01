@@ -6,9 +6,13 @@ export default {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        abdosakr: ["Almarai", "sans-serif"],
+      },
+    },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), "prettier-plugin-tailwindcss"],
   daisyui: {
     themes: ["light", "dark", "cupcake"],
   },

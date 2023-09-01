@@ -5,9 +5,7 @@ import miniLogo from "../assets/miniLogo.png";
 import SidebarBody from "../Molecules/sidebar/SidebarBody";
 
 export default function SidebarContainer({ isSidebarOpen, setIsSidebarOpen }) {
-  const styleSmallScreen = {};
-  const styleLargScreen = {};
-
+  
   return (
     <main
       className={`${
