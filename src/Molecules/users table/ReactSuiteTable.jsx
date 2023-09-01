@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Pagination, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
@@ -65,6 +65,76 @@ export default function ReactSuiteTable() {
   const [showEmail, setShowEmail] = useState(true);
   const [showWorkDays, setShowWorkDays] = useState(true);
   const [showFile, setShowFile] = useState(true);
+
+  // defaultColumns
+  const [defaultColumns, setDefaultColumns] = useState([
+    {
+      id: 5,
+      flexGrow: 1,
+      label: "الملفات",
+      dataKey: "file",
+      // isShow: true,
+      isSortable: false,
+      isCellHasChild: true,
+      CellChild: <FileOfRow />,
+    },
+    {
+      id: 4,
+      flexGrow: 1,
+      label: "أيام العمل",
+      dataKey: "workDays",
+      // isShow: true,
+      isSortable: false,
+      isCellHasChild: true,
+      CellChild: (rowData) => <WorkDays workDays={rowData.workDays} />,
+    },
+    {
+      id: 3,
+      flexGrow: 1.5,
+      label: "البريد الإلكتروني",
+      dataKey: "email",
+      // isShow: true,
+      isSortable: false,
+      isCellHasChild: false,
+      CellChild: "",
+    },
+    {
+      id: 2,
+      flexGrow: 1,
+      label: "الإسم بالكامل",
+      dataKey: "name",
+      // isShow: true,
+      isSortable: true,
+      isCellHasChild: true,
+      CellChild: (rowData) => {
+        if (rowData.name.length > 20) {
+          return (
+            <Whisper
+              placement="top"
+              controlId="control-id-hover"
+              trigger="hover"
+              speaker={<Tooltip>{rowData.name}</Tooltip>}
+            >
+              <span>...{rowData.name.slice(0, 20)}</span>
+            </Whisper>
+          );
+        } else {
+          return <span>{rowData.name}</span>;
+        }
+      },
+    },
+    {
+      id: 1,
+      flexGrow: 0.5,
+      label: "id رقم ال",
+      dataKey: "id",
+      // isShow: true,
+      isSortable: false,
+      isCellHasChild: false,
+      CellChild: "",
+    },
+  ]);
+
   // pagination
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
@@ -114,6 +184,27 @@ export default function ReactSuiteTable() {
     }, 500);
   };
 
+  // drag and drop columns
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+  };
+  const dragEnter = (e, position) => {
+    dragOverItem.current = position;
+    // console.log(e.target.innerHTML);
+  };
+  const drop = (e) => {
+    const copyListItems = [...defaultColumns];
+    const dragItemContent = copyListItems[dragItem.current];
+    copyListItems.splice(dragItem.current, 1);
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setDefaultColumns(copyListItems);
+  };
+
   return (
     <main>
       <Table
@@ -147,62 +238,192 @@ export default function ReactSuiteTable() {
             </button>
           </Cell>
         </Column>
-
-        {showFile ? (
-          <Column align="right" flexGrow={1}>
-            <HeaderCell>ملفات</HeaderCell>
-            <Cell dataKey="file">
-              <FileOfRow />
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showWorkDays ? (
-          <Column align="right" flexGrow={1}>
-            <HeaderCell>أيام العمل</HeaderCell>
-            <Cell dataKey="workDays">
-              {(rowData) => <WorkDays workDays={rowData.workDays} />}
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showEmail ? (
-          <Column align="right" flexGrow={1.5}>
-            <HeaderCell>البريد الإلكتروني</HeaderCell>
-            <Cell dataKey="email" />
-          </Column>
-        ) : null}
-
-        {showName ? (
-          <Column align="right" flexGrow={1} sortable>
-            <HeaderCell>الاسم بالكامل</HeaderCell>
-            <Cell dataKey="name">
-              {(rowData) => {
-                if (rowData.name.length > 20) {
-                  return (
-                    <Whisper
-                      placement="top"
-                      controlId="control-id-hover"
-                      trigger="hover"
-                      speaker={<Tooltip>{rowData.name}</Tooltip>}
-                    >
-                      <span>...{rowData.name.slice(0, 20)}</span>
-                    </Whisper>
-                  );
-                } else {
-                  return <span>{rowData.name}</span>;
-                }
-              }}
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showID ? (
-          <Column align="right" flexGrow={0.5}>
-            <HeaderCell>id رقم ال</HeaderCell>
-            <Cell dataKey="id" />
-          </Column>
-        ) : null}
+        {/* ----------------------------------------------------- */}
+        {defaultColumns.map((column, index) => {
+          switch (column.id) {
+            case 1:
+              return showID ? (
+                column.isSortable ? (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    sortable
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    hidden
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                ) : (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                )
+              ) : null;
+            case 2:
+              return showName ? (
+                column.isSortable ? (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    sortable
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    hidden
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                ) : (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                )
+              ) : null;
+            case 3:
+              return showEmail ? (
+                column.isSortable ? (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    sortable
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    hidden
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                ) : (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                )
+              ) : null;
+            case 4:
+              return showWorkDays ? (
+                column.isSortable ? (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    sortable
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    hidden
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                ) : (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                )
+              ) : null;
+            case 5:
+              return showFile ? (
+                column.isSortable ? (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    sortable
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    hidden
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                ) : (
+                  <Column
+                    align="right"
+                    flexGrow={column.flexGrow}
+                    key={index}
+                    draggable="true"
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                  >
+                    <HeaderCell>{column.label}</HeaderCell>
+                    <Cell dataKey={column.dataKey}>
+                      {column.isCellHasChild ? column.CellChild : null}
+                    </Cell>
+                  </Column>
+                )
+              ) : null;
+          }
+        })}
+        {/* ----------------------------------------------------- */}
       </Table>
       {/* pagination */}
       <div
@@ -252,3 +473,60 @@ export default function ReactSuiteTable() {
   );
 }
 // ==========================================================
+{
+  /* {showFile ? (
+          <Column align="right" flexGrow={1}>
+            <HeaderCell>ملفات</HeaderCell>
+            <Cell dataKey="file">
+              <FileOfRow />
+            </Cell>
+          </Column>
+        ) : null}
+
+        {showWorkDays ? (
+          <Column align="right" flexGrow={1}>
+            <HeaderCell>أيام العمل</HeaderCell>
+            <Cell dataKey="workDays">
+              {(rowData) => <WorkDays workDays={rowData.workDays} />}
+            </Cell>
+          </Column>
+        ) : null}
+
+        {showEmail ? (
+          <Column align="right" flexGrow={1.5}>
+            <HeaderCell>البريد الإلكتروني</HeaderCell>
+            <Cell dataKey="email"></Cell>
+          </Column>
+        ) : null}
+
+        {showName ? (
+          <Column align="right" flexGrow={1} sortable>
+            <HeaderCell>الاسم بالكامل</HeaderCell>
+            <Cell dataKey="name">
+              {(rowData) => {
+                if (rowData.name.length > 20) {
+                  return (
+                    <Whisper
+                      placement="top"
+                      controlId="control-id-hover"
+                      trigger="hover"
+                      speaker={<Tooltip>{rowData.name}</Tooltip>}
+                    >
+                      <span>...{rowData.name.slice(0, 20)}</span>
+                    </Whisper>
+                  );
+                } else {
+                  return <span>{rowData.name}</span>;
+                }
+              }}
+            </Cell>
+          </Column>
+        ) : null}
+
+        {showID ? (
+          <Column align="right" flexGrow={0.5}>
+            <HeaderCell>id رقم ال</HeaderCell>
+            <Cell dataKey="id"></Cell>
+          </Column>
+        ) : null} */
+}
