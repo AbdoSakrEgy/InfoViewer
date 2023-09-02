@@ -18,7 +18,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         <h1 className="text-sm mb-5 pr-5 text-gray-400">الرئيسية</h1>
         <Menu
           name={"الرئيسية"}
-          linkID={1}
+          menuID={1}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -26,7 +26,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         />
         <MenuWithCollapse
           name={"منيو رقم 1"}
-          linkID={2}
+          menuID={2}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -34,7 +34,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         />
         <MenuWithCollapse
           name={"منيو رقم 1"}
-          linkID={3}
+          menuID={3}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -42,7 +42,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         />
         <MenuWithCollapse
           name={"منيو رقم 1"}
-          linkID={4}
+          menuID={4}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -50,7 +50,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         />
         <Menu
           name={"منيو رقم 1"}
-          linkID={5}
+          menuID={5}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -60,14 +60,14 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
       <section className="flex flex-col gap-5">
         <h1 className="text-sm mb-5 pr-5 text-gray-400">الحساب</h1>
         <Info
-          linkID={6}
+          menuID={6}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
         <Settinges
-          linkID={7}
+          menuID={7}
           linkActive={linkActive}
           setLinkActive={setLinkActive}
           isSidebarOpen={isSidebarOpen}
@@ -80,7 +80,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
 // ====================================================================
 function Menu({
   name,
-  linkID,
+  menuID,
   linkActive,
   setLinkActive,
   isSidebarOpen,
@@ -88,14 +88,14 @@ function Menu({
 }) {
   return (
     <main
-      onClick={() => setLinkActive(linkID)}
+      onClick={() => setLinkActive(menuID)}
       className="flex justify-end items-center gap-2 mt-7 text-sm font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>{name}</span>
       <span
         className={
-          linkActive === linkID
-            ? "py-2 pl-5 rounded-l-full bg-yellow-300"
+          linkActive === menuID
+            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
             : "py-2 pl-5 rounded-l-full"
         }
       >
@@ -107,7 +107,7 @@ function Menu({
 // ====================================================================
 function MenuWithCollapse({
   name,
-  linkID,
+  menuID,
   linkActive,
   setLinkActive,
   isSidebarOpen,
@@ -118,7 +118,7 @@ function MenuWithCollapse({
   return (
     <main
       onClick={() => {
-        setLinkActive(linkID);
+        setLinkActive(menuID);
       }}
       className="mt-7 hover:cursor-pointer"
     >
@@ -140,7 +140,7 @@ function MenuWithCollapse({
           <span className={`${!isSidebarOpen && "hidden"}`}>{name}</span>
           <span
             className={`py-2 pl-5 rounded-l-full ${
-              linkActive === linkID && "bg-yellow-300"
+              linkActive === menuID && "bg-[#FEEE00]"
             }`}
           >
             <img src={homeIcon} alt="homeIcon" className="pr-5" />
@@ -168,7 +168,7 @@ function MenuWithCollapse({
 }
 // ====================================================================
 function Info({
-  linkID,
+  menuID,
   linkActive,
   setLinkActive,
   isSidebarOpen,
@@ -176,14 +176,14 @@ function Info({
 }) {
   return (
     <div
-      onClick={() => setLinkActive(linkID)}
+      onClick={() => setLinkActive(menuID)}
       className="flex justify-end items-center gap-2 text-sm font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>المساعدة</span>
       <span
         className={
-          linkActive === linkID
-            ? "py-2 pl-5 rounded-l-full bg-yellow-300"
+          linkActive === menuID
+            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
             : "py-2 pl-5 rounded-l-full"
         }
       >
@@ -194,7 +194,7 @@ function Info({
 }
 // ====================================================================
 function Settinges({
-  linkID,
+  menuID,
   linkActive,
   setLinkActive,
   isSidebarOpen,
@@ -202,14 +202,14 @@ function Settinges({
 }) {
   return (
     <div
-      onClick={() => setLinkActive(linkID)}
+      onClick={() => setLinkActive(menuID)}
       className="flex justify-end items-center gap-2 text-sm font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>الإعدادات</span>
       <span
         className={
-          linkActive === linkID
-            ? "py-2 pl-5 rounded-l-full bg-yellow-300"
+          linkActive === menuID
+            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
             : "py-2 pl-5 rounded-l-full"
         }
       >

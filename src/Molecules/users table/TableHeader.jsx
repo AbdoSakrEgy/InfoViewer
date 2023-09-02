@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
+import AddNewUserButton from "./AddNewUserButton";
 
-export default function Search() {
+export default function TableHeader() {
   return (
-    <>
+    <header className="flex flex-col gap-3 xl:flex-row xl:justify-between mb-5">
+      <AddNewUserButton />
       <main className="flex flex-col gap-2 xl:flex-row xl:justify-between">
         <OrderComponent />
         <FilterComponent />
         <SearchComponent />
       </main>
-    </>
+    </header>
   );
 }
-
+// ===========================================================
 const SearchComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,22 +39,19 @@ const SearchComponent = () => {
     </main>
   );
 };
-
+// ===========================================================
 function FilterComponent() {
   return (
-    <>
-      <main className="flex justify-center items-center cursor-pointer p-2 relative border rounded-md border-gray-300 text-gray-400 bg-white">
-        <Icon icon="mi:filter" width="25" />
-      </main>
-    </>
+    <main className="flex justify-center items-center cursor-pointer p-2 relative border rounded-md border-gray-300 text-gray-400 bg-white">
+      <Icon icon="mi:filter" width="25" />
+    </main>
   );
 }
+// ===========================================================
 function OrderComponent() {
   return (
-    <>
-      <main className="flex justify-center items-center cursor-pointer p-2 relative border rounded-md border-gray-300 text-gray-400 bg-white">
-        <Icon icon="fluent:arrow-sort-20-filled" width="25" />
-      </main>
-    </>
+    <main className="flex justify-center items-center cursor-pointer p-2 relative border rounded-md border-gray-300 text-gray-400 bg-white">
+      <Icon icon="fluent:arrow-sort-20-filled" width="25" />
+    </main>
   );
 }

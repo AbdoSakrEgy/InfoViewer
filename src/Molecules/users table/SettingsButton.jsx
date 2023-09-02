@@ -4,16 +4,16 @@ import { Icon } from "@iconify/react";
 
 export default function SettingsButton({
   placement,
-  showID,
-  showName,
-  showEmail,
-  showWorkDays,
-  showFile,
-  setShowID,
-  setShowName,
-  setShowEmail,
-  setShowWorkDays,
-  setShowFile,
+  isIDVisible,
+  isNameVisible,
+  isEmailVisible,
+  isWorkdaysVisible,
+  isFileVisible,
+  setIsIDVisible,
+  setIsNameVisible,
+  setIsEmailVisible,
+  setIsWorkdaysVisible,
+  setIsFileVisible,
 }) {
   const myStyle = {
     color: "black",
@@ -33,9 +33,10 @@ export default function SettingsButton({
             <hr className="my-3" />
             <input
               id="idCheckbox"
-              checked={showID}
+              checked={isIDVisible}
+              // checked={!isIDVisible} //not working not true
               type="checkbox"
-              onChange={(e) => setShowID(e.target.checked)}
+              onChange={(e) => setIsIDVisible(e.target.checked)}
             />
             <label
               htmlFor="idCheckbox"
@@ -47,9 +48,10 @@ export default function SettingsButton({
             <hr className="my-3" />
             <input
               id="nameCheckbox"
-              checked={showName}
+              checked={isNameVisible}
+              // checked={!isNameVisible} //not working not true
               type="checkbox"
-              onChange={(e) => setShowName(e.target.checked)}
+              onChange={(e) => setIsNameVisible(e.target.checked)}
             />
             <label
               htmlFor="nameCheckbox"
@@ -61,9 +63,10 @@ export default function SettingsButton({
             <hr className="my-3" />
             <input
               id="emailCheckbox"
-              checked={showEmail}
+              checked={isEmailVisible}
+              // checked={!isEmailVisible} //not working not true
               type="checkbox"
-              onChange={(e) => setShowEmail(e.target.checked)}
+              onChange={(e) => setIsEmailVisible(e.target.checked)}
             />
             <label
               htmlFor="emailCheckbox"
@@ -75,9 +78,10 @@ export default function SettingsButton({
             <hr className="my-3" />
             <input
               id="workDaysCheckbox"
-              checked={showWorkDays}
+              checked={isWorkdaysVisible}
+              // checked={!isWorkdaysVisible} //not working not true
               type="checkbox"
-              onChange={(e) => setShowWorkDays(e.target.checked)}
+              onChange={(e) => setIsWorkdaysVisible(e.target.checked)}
             />
             <label
               htmlFor="workDaysCheckbox"
@@ -89,9 +93,10 @@ export default function SettingsButton({
             <hr className="my-3" />
             <input
               id="fileCheckbox"
-              checked={showFile}
+              checked={isFileVisible}
+              // checked={!isFileVisible} //not working not true
               type="checkbox"
-              onChange={(e) => setShowFile(e.target.checked)}
+              onChange={(e) => setIsFileVisible(e.target.checked)}
             />
             <label
               htmlFor="fileCheckbox"

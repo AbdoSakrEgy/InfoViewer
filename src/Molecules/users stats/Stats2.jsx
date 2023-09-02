@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "rsuite/dist/rsuite.min.css";
 import { Progress } from "rsuite";
 
-export default function Stats() {
+export default function Stats2() {
   return (
     <>
       <main className="flex flex-col justify-between gap-3 xl:gap-0 h-full xl:w-60 p-3 bg-white">
-        <section className="xl:text-right text-center font-bold">إحصائيات</section>
+        <section className="xl:text-right text-center font-bold">
+          إحصائيات
+        </section>
         <section className="flex justify-center items-center">
           <RadialProgress />
         </section>
@@ -16,7 +18,7 @@ export default function Stats() {
               <span className="font-bold">108</span>
               <span className="text-xs text-gray-400">الخيار الثاني</span>
             </article>
-            <div className="absolute rounded h-full w-1 -right-4 bg-yellow-300"></div>
+            <div className="absolute rounded h-full w-1 -right-4 bg-[#FEEE00]"></div>
           </aside>
           <aside className="flex justify-end items-center relative">
             <article className="flex flex-col items-end">

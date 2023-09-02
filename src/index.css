@@ -4,8 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* fonts */
-
 /* body-html */
 body,
 html {
@@ -48,3 +46,4 @@ input[type="checkbox"]:checked + label:before {
   background-color: #2385ea;
   color: white;
 }
+/*  */

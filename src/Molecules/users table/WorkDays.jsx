@@ -60,8 +60,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 1)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         س

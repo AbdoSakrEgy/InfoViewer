@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import userImage from "../../assets/Image-79.png";
-import Ellipse1 from "../../assets/Ellipse1.png";
-import Ellipse2 from "../../assets/Ellipse2.png";
-import Ellipse3 from "../../assets/Ellipse3.png";
+import Datepicker from "react-tailwindcss-datepicker";
+import { Icon } from "@iconify/react";
+import GetMonthName from "../users date/GetMonthName";
 
-export default function UserData() {
+export default function Stats1() {
+  const [value, setValue] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const handleValueChange = (newValue) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  };
+
   return (
     <>
       <main className="flex flex-col gap-5 p-3 h-full rounded-md w-40 xl:w-80 bg-white">
-        <section className="flex flex-col xl:flex-row xl:justify-between xl:gap-24 gap-10 items-center">
-          <span className="flex justify-center text-xs text-gray-400">
-            <span>يونيو</span>
-            <span>10</span>
-            <span>-</span>
-            <span>مايو</span>
-            <span>10</span>
+        <section className="flex flex-col xl:flex-row xl:justify-between xl:gap-0 gap-10 items-center">
+          <span className="flex items-center">
+            <Icon icon="ep:arrow-down" className="mr-1" />
+            <Datepicker
+              // useRange={false}
+              value={value}
+              onChange={handleValueChange}
+              displayFormat="MM-DD"
+              placeholder={"حدد الفترة"}
+              inputClassName="focus:ring-0 text-[15px]"
+              containerClassName="relative"
+              toggleClassName="hidden"
+            />
           </span>
           <span className="font-bold">الشخص الأول</span>
         </section>
@@ -41,7 +56,7 @@ export default function UserData() {
                 }}
               >
                 <span className="flex flex-col justify-center items-center w-full h-full overflow-hidden text-black">
-                  <img src={userImage} alt="userImage" className="w-10"/>
+                  <img src={userImage} alt="userImage" className="w-10" />
                   <p className="text-xs font-bold">الموظف الأول</p>
                 </span>
               </div>

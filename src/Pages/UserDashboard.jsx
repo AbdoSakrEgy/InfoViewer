@@ -19,7 +19,7 @@ export default function UserDashboard() {
                   icon="material-symbols:keyboard-arrow-up-rounded"
                   rotate={1}
                   width={40}
-                  className="rounded-full fixed top-1/2 left-3 border-4 border-white bg-yellow-300"
+                  className="rounded-full fixed top-1/2 left-3 border-4 border-white bg-[#FEEE00]"
                 />
               </div>
             </label>

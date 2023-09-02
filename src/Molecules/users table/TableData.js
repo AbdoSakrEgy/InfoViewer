@@ -1,7 +1,36 @@
-import React from "react";
-import FileOfRow from "./FileOfRow";
-import WorkDays from "./WorkDays";
-
+export const columnsData = [
+  {
+    id: 5,
+    flexGrow: 1,
+    label: "الملفات",
+    dataKey: "file",
+  },
+  {
+    id: 4,
+    flexGrow: 1.5,
+    label: "أيام العمل",
+    dataKey: "workDays",
+  },
+  {
+    id: 3,
+    flexGrow: 1.5,
+    label: "البريد الإلكتروني",
+    dataKey: "email",
+  },
+  {
+    id: 2,
+    flexGrow: 1,
+    label: "الإسم بالكامل",
+    dataKey: "name",
+  },
+  {
+    id: 1,
+    flexGrow: 0.5,
+    label: "id رقم ال",
+    dataKey: "id",
+  },
+];
+// ===================================================================================
 export const usersData = [
   {
     id: "1",
@@ -138,38 +167,5 @@ export const usersData = [
     workDays: [2, 3, 6],
     file: "",
     settings: "",
-  },
-];
-// ===================================================================================
-export const columnsData = [
-  {
-    id: 5,
-    flexGrow: 1,
-    label: "الملفات",
-    dataKey: "file",
-  },
-  {
-    id: 4,
-    flexGrow: 1,
-    label: "أيام العمل",
-    dataKey: "workDays",
-  },
-  {
-    id: 3,
-    flexGrow: 1.5,
-    label: "البريد الإلكتروني",
-    dataKey: "email",
-  },
-  {
-    id: 2,
-    flexGrow: 1,
-    label: "الإسم بالكامل",
-    dataKey: "name",
-  },
-  {
-    id: 1,
-    flexGrow: 0.5,
-    label: "id رقم ال",
-    dataKey: "id",
   },
 ];

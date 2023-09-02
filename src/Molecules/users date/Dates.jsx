@@ -1,47 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import { v4 as uuidv4 } from "uuid";
-
-// ====================================================================
-function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate();
-}
-// daysInMonth(7, 2009); // 31
-// ====================================================================
-function getDayName(date = new Date(), locale = "en-US") {
-  switch (date.toLocaleDateString(locale, { weekday: "long" })) {
-    case "Saturday":
-      return "السبت";
-    case "Sunday":
-      return "الأحد";
-    case "Monday":
-      return "الإثنين";
-    case "Tuesday":
-      return "الثلاثاء";
-    case "Wednesday":
-      return "الأربعاء";
-    case "Thursday":
-      return "الخميس";
-    case "Friday":
-      return "الجمعة";
-  }
-  // return date.toLocaleDateString(locale, { weekday: "long" });
-}
-// console.log(getDayName(new Date('2023-08-23')));
-// ====================================================================
-
-function formatDate(date = new Date()) {
-  const year = date.toLocaleString("default", { year: "numeric" });
-  const month = date.toLocaleString("default", {
-    month: "2-digit",
-  });
-  const day = date.toLocaleString("default", { day: "2-digit" });
-
-  return [year, month, day].join("-");
-}
-// 👇️ 2023-07-26 (YYYY-MM-DD)
-// console.log(formatDate(new Date()));
-// ====================================================================
+import Datepicker from "react-tailwindcss-datepicker";
+import GetDayName from "./GetDayName";
+import GetMonthName from "./GetMonthName";
 
 export default function Dates() {
   const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
@@ -55,26 +16,41 @@ export default function Dates() {
   }, [selectedDate]);
 
   return (
-    <>
-      <main className="flex flex-col gap-5">
-        <Section1
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          selectedMonthNumber={selectedMonthNumber}
-          selectedYearNumber={selectedYearNumber}
-          selectedDayNumber={selectedDayNumber}
-        />
-        <Section2
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          selectedMonthNumber={selectedMonthNumber}
-          selectedYearNumber={selectedYearNumber}
-          selectedDayNumber={selectedDayNumber}
-        />
-      </main>
-    </>
+    <main className="flex flex-col gap-5">
+      <Section1
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedYearNumber={selectedYearNumber}
+        selectedMonthNumber={selectedMonthNumber}
+        selectedDayNumber={selectedDayNumber}
+      />
+      <Section2
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedYearNumber={selectedYearNumber}
+        selectedMonthNumber={selectedMonthNumber}
+        selectedDayNumber={selectedDayNumber}
+      />
+    </main>
   );
 }
+// ====================================================================
+function formatDate(date = new Date()) {
+  const year = date.toLocaleString("default", { year: "numeric" });
+  const month = date.toLocaleString("default", {
+    month: "2-digit",
+  });
+  const day = date.toLocaleString("default", { day: "2-digit" });
+
+  return [year, month, day].join("-");
+}
+// 👇️ 2023-07-26 (YYYY-MM-DD)
+// console.log(formatDate(new Date()));
+// ====================================================================
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
+// daysInMonth(7, 2009); // 31
 // ====================================================================
 function Section1({
   selectedDate,
@@ -83,9 +59,8 @@ function Section1({
   selectedYearNumber,
   selectedDayNumber,
 }) {
-  const handleDateChange = (e) => {
-    // console.log(e.target.value); 2023-08-23
-    setSelectedDate(e.target.value);
+  const handleValueChange = (newValue) => {
+    setSelectedDate(newValue.startDate);
   };
 
   const handleIncDate = (e) => {
@@ -115,33 +90,45 @@ function Section1({
   };
 
   return (
-    <>
-      <section className="flex flex-col xl:flex-row justify-between items-center gap-3 pb-3 border-b-2 border-dashed">
-        <div>
-          <input
-            type="date"
-            value={selectedDate}
-            className="bg-[#F7F6FD] p-3 rounded-md w-40"
-            onChange={handleDateChange}
+    <section className="flex flex-col xl:flex-row justify-between items-center gap-3 pb-3 border-b-2 border-dashed">
+      <div>
+        <span className="flex items-center rounded-lg bg-[#F7F6FD]">
+          <Icon icon="ep:arrow-down" className="ml-3" />
+          <Datepicker
+            useRange={false}
+            asSingle={true}
+            value={{ startDate: selectedDate, endDate: selectedDate }}
+            onChange={handleValueChange}
+            displayFormat={`YYYY ${GetMonthName(new Date(selectedDate))}`}
+            containerClassName="w-fit"
+            inputClassName="py-5 px-1 w-[95px] text-right outline-none bg-[#F7F6FD] text-[#A09CB2]"
+            toggleClassName="hidden"
           />
+          <Icon
+            icon="solar:calendar-linear"
+            width={20}
+            className="mr-3 text-black"
+          />
+        </span>
+      </div>
+      <aside className="flex">
+        <button
+          onClick={handleIncDate}
+          className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
+        >
+          <Icon icon="fluent:ios-arrow-24-filled" width="20" rotate={2} />
+        </button>
+        <button
+          onClick={handleDecDate}
+          className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
+        >
+          <Icon icon="fluent:ios-arrow-24-filled" width="20" />
+        </button>
+        <div className="flex items-center font-semibold ml-2">
+          تقويم المواعيد
         </div>
-        <aside className="flex">
-          <button
-            onClick={handleIncDate}
-            className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
-          >
-            <Icon icon="fluent:ios-arrow-24-filled" width="20" rotate={2} />
-          </button>
-          <button
-            onClick={handleDecDate}
-            className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
-          >
-            <Icon icon="fluent:ios-arrow-24-filled" width="20" />
-          </button>
-          <div className="font-semibold ml-2">تقويم المواعيد</div>
-        </aside>
-      </section>
-    </>
+      </aside>
+    </section>
   );
 }
 // ====================================================================
@@ -177,16 +164,14 @@ function Section2({
   }
 
   return (
-    <>
-      <section
-        id="DayContainer"
-        className="flex justify-between items-center gap-1 overflow-auto border-b-2 border-dashed pb-3 DirectionRTL"
-      >
-        {allMonthDays.map((item) => (
-          <span key={uuidv4()}>{item}</span>
-        ))}
-      </section>
-    </>
+    <section
+      id="DayContainer"
+      className="flex justify-between items-center gap-1 overflow-auto border-b-2 border-dashed pb-3 DirectionRTL"
+    >
+      {allMonthDays.map((item, index) => (
+        <span key={index}>{item}</span>
+      ))}
+    </section>
   );
 }
 // ====================================================================
@@ -199,47 +184,44 @@ function DayGenerator({
   privateDayNumber,
 }) {
   return (
-    <>
-      <main
-        onClick={() => {
-          setSelectedDate(
-            `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
-          );
-        }}
+    <main
+      onClick={() => {
+        setSelectedDate(
+          `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
+        );
+      }}
+      className={
+        privateDayNumber == selectedDayNumber
+          ? "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer bg-[#FEEE00]"
+          : "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer"
+      }
+    >
+      <h1
         className={
           privateDayNumber == selectedDayNumber
-            ? "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer bg-[#FEEE00]"
-            : "flex flex-col items-center gap-3 px-1 py-3 rounded-md hover:cursor-pointer"
+            ? "flex justify-center items-center h-3 text-[10px] font-bold text-black"
+            : "flex justify-center items-center h-3 text-[10px] font-bold text-[#B4B4B4]"
         }
-        // onClick={() => setActiveDay(dayID)}
       >
-        <h1
-          className={
-            privateDayNumber == selectedDayNumber
-              ? "flex justify-center items-center h-3 text-[10px] font-bold text-black"
-              : "flex justify-center items-center h-3 text-[10px] font-bold text-[#B4B4B4]"
-          }
-        >
-          {getDayName(
-            new Date(
-              `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
-            )
-          )}
-        </h1>
-        <p
-          className={
-            privateDayNumber == selectedDayNumber
-              ? "flex justify-center items-center w-8 h-8 rounded-full text-[15px] bg-black text-white"
-              : "flex justify-center items-center w-8 h-8 rounded-full text-[15px]"
-          }
-        >
-          {privateDayNumber}
-        </p>
-        <span className="flex justify-center gap-1">
-          <div className="w-[5px] h-[5px] rounded-full bg-[#FC9A00]"></div>
-          <div className="w-[5px] h-[5px] rounded-full bg-[#FF4B55]"></div>
-        </span>
-      </main>
-    </>
+        {GetDayName(
+          new Date(
+            `${selectedYearNumber}-${selectedMonthNumber}-${privateDayNumber}`
+          )
+        )}
+      </h1>
+      <p
+        className={
+          privateDayNumber == selectedDayNumber
+            ? "flex justify-center items-center w-8 h-8 rounded-full text-[15px] bg-black text-white"
+            : "flex justify-center items-center w-8 h-8 rounded-full text-[15px]"
+        }
+      >
+        {privateDayNumber}
+      </p>
+      <span className="flex justify-center gap-1">
+        <div className="w-[5px] h-[5px] rounded-full bg-[#FC9A00]"></div>
+        <div className="w-[5px] h-[5px] rounded-full bg-[#FF4B55]"></div>
+      </span>
+    </main>
   );
 }

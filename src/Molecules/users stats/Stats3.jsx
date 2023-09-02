@@ -4,7 +4,7 @@ import MaskGroup2 from "../../assets/Mask Group2.png";
 import MaskGroup3 from "../../assets/Mask Group3.png";
 import { Icon } from "@iconify/react";
 
-export default function AdditionalStats() {
+export default function Stats3() {
   return (
     <>
       <main className="flex flex-col gap-3 h-full">
@@ -45,14 +45,6 @@ export default function AdditionalStats() {
           </section>
         </header>
       </main>
-    </>
-  );
-}
-
-function DataViewer({ name, data }) {
-  return (
-    <>
-      <main className=""></main>
     </>
   );
 }

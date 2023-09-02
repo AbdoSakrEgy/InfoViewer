@@ -10,11 +10,12 @@ import FileOfRow from "./FileOfRow";
 import { usersData, columnsData } from "./TableData";
 
 export default function ReactSuiteTable() {
-  const [showID, setShowID] = useState(true);
-  const [showName, setShowName] = useState(true);
-  const [showEmail, setShowEmail] = useState(true);
-  const [showWorkDays, setShowWorkDays] = useState(true);
-  const [showFile, setShowFile] = useState(true);
+  // show and hide columns
+  const [isIDVisible, setIsIDVisible] = useState(true);
+  const [isNameVisible, setIsNameVisible] = useState(true);
+  const [isEmailVisible, setIsEmailVisible] = useState(true);
+  const [isWorkdaysVisible, setIsWorkdaysVisible] = useState(true);
+  const [isFileVisible, setIsFileVisible] = useState(true);
 
   // rows and columns
   const users = usersData;
@@ -105,16 +106,16 @@ export default function ReactSuiteTable() {
           <HeaderCell>
             <SettingsButton
               placement="rightStart"
-              showID={showID}
-              showName={showName}
-              showEmail={showEmail}
-              showWorkDays={showWorkDays}
-              showFile={showFile}
-              setShowID={setShowID}
-              setShowName={setShowName}
-              setShowEmail={setShowEmail}
-              setShowWorkDays={setShowWorkDays}
-              setShowFile={setShowFile}
+              isIDVisible={isIDVisible}
+              isNameVisible={isNameVisible}
+              isEmailVisible={isEmailVisible}
+              isWorkdaysVisible={isWorkdaysVisible}
+              isFileVisible={isFileVisible}
+              setIsIDVisible={setIsIDVisible}
+              setIsNameVisible={setIsNameVisible}
+              setIsEmailVisible={setIsEmailVisible}
+              setIsWorkdaysVisible={setIsWorkdaysVisible}
+              setIsFileVisible={setIsFileVisible}
             />
           </HeaderCell>
           <Cell dataKey="settings">
@@ -123,11 +124,11 @@ export default function ReactSuiteTable() {
             </button>
           </Cell>
         </Column>
-        {/* ----------------------------------------------------- */}
+        {/* map columns */}
         {defaultColumns.map((column, index) => {
           switch (column.id) {
             case 1:
-              return showID ? (
+              return isIDVisible ? (
                 <Column
                   align="right"
                   flexGrow={column.flexGrow}
@@ -142,7 +143,7 @@ export default function ReactSuiteTable() {
                 </Column>
               ) : null;
             case 2:
-              return showName ? (
+              return isNameVisible ? (
                 <Column
                   align="right"
                   flexGrow={column.flexGrow}
@@ -175,7 +176,7 @@ export default function ReactSuiteTable() {
                 </Column>
               ) : null;
             case 3:
-              return showEmail ? (
+              return isEmailVisible ? (
                 <Column
                   align="right"
                   flexGrow={column.flexGrow}
@@ -190,7 +191,7 @@ export default function ReactSuiteTable() {
                 </Column>
               ) : null;
             case 4:
-              return showWorkDays ? (
+              return isWorkdaysVisible ? (
                 <Column
                   align="right"
                   flexGrow={column.flexGrow}
@@ -207,7 +208,7 @@ export default function ReactSuiteTable() {
                 </Column>
               ) : null;
             case 5:
-              return showFile ? (
+              return isFileVisible ? (
                 <Column
                   align="right"
                   flexGrow={column.flexGrow}
@@ -225,7 +226,7 @@ export default function ReactSuiteTable() {
               ) : null;
           }
         })}
-        {/* ----------------------------------------------------- */}
+        {/* map columns */}
       </Table>
       {/* pagination */}
       <div
@@ -275,60 +276,3 @@ export default function ReactSuiteTable() {
   );
 }
 // ==========================================================
-{
-  /* {showFile ? (
-          <Column align="right" flexGrow={1}>
-            <HeaderCell>ملفات</HeaderCell>
-            <Cell dataKey="file">
-              <FileOfRow />
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showWorkDays ? (
-          <Column align="right" flexGrow={1}>
-            <HeaderCell>أيام العمل</HeaderCell>
-            <Cell dataKey="workDays">
-              {(rowData) => <WorkDays workDays={rowData.workDays} />}
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showEmail ? (
-          <Column align="right" flexGrow={1.5}>
-            <HeaderCell>البريد الإلكتروني</HeaderCell>
-            <Cell dataKey="email"></Cell>
-          </Column>
-        ) : null}
-
-        {showName ? (
-          <Column align="right" flexGrow={1} sortable>
-            <HeaderCell>الاسم بالكامل</HeaderCell>
-            <Cell dataKey="name">
-              {(rowData) => {
-                if (rowData.name.length > 20) {
-                  return (
-                    <Whisper
-                      placement="top"
-                      controlId="control-id-hover"
-                      trigger="hover"
-                      speaker={<Tooltip>{rowData.name}</Tooltip>}
-                    >
-                      <span>...{rowData.name.slice(0, 20)}</span>
-                    </Whisper>
-                  );
-                } else {
-                  return <span>{rowData.name}</span>;
-                }
-              }}
-            </Cell>
-          </Column>
-        ) : null}
-
-        {showID ? (
-          <Column align="right" flexGrow={0.5}>
-            <HeaderCell>id رقم ال</HeaderCell>
-            <Cell dataKey="id"></Cell>
-          </Column>
-        ) : null} */
-}

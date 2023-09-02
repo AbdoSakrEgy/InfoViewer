@@ -47,6 +47,7 @@ export default function Comments() {
             dragStart={dragStart}
             dragEnter={dragEnter}
             drop={drop}
+            text={"هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوي"}
           />
         ))}
       </main>
@@ -74,9 +75,7 @@ function CommentTemp({
       onDragEnter={(e) => dragEnter(e, index)}
       onDragEnd={drop}
     >
-      <p className="text-right font-semibold">
-        هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوي
-      </p>
+      <p className="text-right font-semibold">{text}</p>
       <section className="flex justify-end items-center gap-1">
         <span>م</span>
         <span>06:00</span>

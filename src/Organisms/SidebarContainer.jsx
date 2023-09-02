@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import logo from "../assets/logo.png";
 import miniLogo from "../assets/miniLogo.png";
 import SidebarBody from "../Molecules/sidebar/SidebarBody";
 
-export default function SidebarContainer({ isSidebarOpen, setIsSidebarOpen }) {
-  
+export default function SidebarContainer() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   return (
     <main
       className={`${
@@ -18,7 +19,7 @@ export default function SidebarContainer({ isSidebarOpen, setIsSidebarOpen }) {
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         icon="material-symbols:keyboard-arrow-up-rounded"
         rotate={1}
-        className={`absolute top-16 p-0 m-0 rounded-full hover:cursor-pointer text-black bg-yellow-300 ${
+        className={`absolute top-16 p-0 m-0 rounded-full hover:cursor-pointer text-black bg-[#FEEE00] ${
           isSidebarOpen ? "left-0 xl:-left-3" : "rotate-180 -left-3"
         }`}
         width={20}
