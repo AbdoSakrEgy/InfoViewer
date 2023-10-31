@@ -1,14 +1,26 @@
 import React from "react";
 import Dates from "../Molecules/users date/Dates";
 import Comments from "../Molecules/users date/Comments";
+import useScreenSize from "../Atoms/useScreenSize";
+import "./usersDateContainer.css";
 
 export default function UsersDateContainer() {
+  const screenSize = useScreenSize();
+
   return (
-    <>
-      <main className="flex flex-col gap-5 p-5 xl:mt-3 xl:mr-3 w-2/3 xl:w-auto rounded-lg bg-white">
-        <Dates />
-        <Comments />
-      </main>
-    </>
+    <main
+      className={`${
+        screenSize.width >= 768
+          ? "usersDateContainer-lg"
+          : (screenSize.width < 768) & (screenSize.width > 480)
+          ? "usersDateContainer-md"
+          : screenSize.width <= 480
+          ? "usersDateContainer-sm"
+          : ""
+      } p-5  rounded-lg bg-white border-t-4 border-t-[#F6F6F6]`}
+    >
+      <Dates />
+      <Comments />
+    </main>
   );
 }

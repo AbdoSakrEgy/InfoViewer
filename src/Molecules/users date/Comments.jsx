@@ -9,8 +9,13 @@ export default function Comments() {
     { bgColor: "#F2F5F1", textColor: "black", img: person2 },
     { bgColor: "#FFF6E3", textColor: "black", img: person3 },
     { bgColor: "#7661E2", textColor: "white", img: person4 },
+    { bgColor: "#F2F5F1", textColor: "black", img: person2 },
     { bgColor: "#F1ECFE", textColor: "black", img: person4 },
     { bgColor: "#7661E4", textColor: "white", img: person4 },
+    { bgColor: "#FFF6E3", textColor: "black", img: person3 },
+    { bgColor: "#F1ECFE", textColor: "black", img: person4 },
+    { bgColor: "#FFF6E3", textColor: "black", img: person3 },
+    { bgColor: "#F2F5F1", textColor: "black", img: person2 },
   ]);
 
   const dragItem = useRef();
@@ -68,27 +73,26 @@ function CommentTemp({
 }) {
   return (
     <main
-      className={`flex flex-col gap-5 rounded-xl p-5 `}
+      className={`flex flex-col gap-3 rounded-xl p-3 `}
       style={{ backgroundColor: bgColor, color: textColor }}
       draggable
       onDragStart={(e) => dragStart(e, index)}
       onDragEnter={(e) => dragEnter(e, index)}
       onDragEnd={drop}
     >
-      <p className="text-right font-semibold">{text}</p>
-      <section className="flex justify-end items-center gap-1">
+      <p className="text-right text-[10px] font-semibold">{text}</p>
+      <section className="flex justify-end items-center gap-1 text-[10px]">
         <span>م</span>
         <span>06:00</span>
         <span>-</span>
         <span>05:00</span>
-        <Icon icon="teenyicons:clock-outline" className="ml-3" />
+        <Icon icon="teenyicons:clock-outline" />
       </section>
-      <section className="flex justify-between">
-        <button className="btn btn-md rounded-xl bg-white hover:bg-white">
+      <section className="flex justify-between items-center">
+        <button className="btn btn-sm rounded-xl bg-white hover:bg-white">
           <Icon icon="uiw:arrow-left" />
         </button>
-
-        <img src={img} alt="person" className="w-11 h-11" />
+        <img src={img} alt="person" className="object-fill" />
       </section>
     </main>
   );

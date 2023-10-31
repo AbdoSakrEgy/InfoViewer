@@ -6,8 +6,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 7)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         ج
@@ -15,8 +15,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 6)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         خ
@@ -24,8 +24,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 5)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         ا
@@ -33,8 +33,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 4)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         ث
@@ -42,8 +42,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 3)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         ن
@@ -51,8 +51,8 @@ export default function WorkDays({ workDays }) {
       <span
         className={
           workDays.find((element) => element === 2)
-            ? "w-5 text-center p-1 rounded-sm text-xs bg-[#2385EA] text-white"
-            : "w-5 text-center p-1 rounded-sm text-xs bg-[#F7F7FA] text-[#BBBEC2]"
+            ? "w-5 text-center p-1 rounded-sm text-[10px] bg-[#2385EA] text-white"
+            : "w-5 text-center p-1 rounded-sm text-[10px] bg-[#F7F7FA] text-[#BBBEC2]"
         }
       >
         ح

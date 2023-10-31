@@ -90,10 +90,10 @@ function Section1({
   };
 
   return (
-    <section className="flex flex-col xl:flex-row justify-between items-center gap-3 pb-3 border-b-2 border-dashed">
+    <section className="flex justify-between items-center gap-3 pb-3 border-b-[1px] border-dashed">
       <div>
         <span className="flex items-center rounded-lg bg-[#F7F6FD]">
-          <Icon icon="ep:arrow-down" className="ml-3" />
+          <Icon icon="ep:arrow-down" className="ml-3 w-2" />
           <Datepicker
             useRange={false}
             asSingle={true}
@@ -101,13 +101,13 @@ function Section1({
             onChange={handleValueChange}
             displayFormat={`YYYY ${GetMonthName(new Date(selectedDate))}`}
             containerClassName="w-fit"
-            inputClassName="py-5 px-1 w-[95px] text-right outline-none bg-[#F7F6FD] text-[#A09CB2]"
+            inputClassName="py-3 px-1 w-[55px] text-right outline-none bg-[#F7F6FD] text-[#A09CB2] text-[10px]"
             toggleClassName="hidden"
           />
           <Icon
             icon="solar:calendar-linear"
-            width={20}
-            className="mr-3 text-black"
+            width={15}
+            className="mr-3 ml-1 text-black"
           />
         </span>
       </div>
@@ -116,15 +116,24 @@ function Section1({
           onClick={handleIncDate}
           className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
         >
-          <Icon icon="fluent:ios-arrow-24-filled" width="20" rotate={2} />
+          <Icon
+            icon="fluent:ios-arrow-24-filled"
+            width="13"
+            className="text-black"
+          />
         </button>
         <button
           onClick={handleDecDate}
           className="btn btn-sm bg-inherit hover:bg-inherit border-none p-0"
         >
-          <Icon icon="fluent:ios-arrow-24-filled" width="20" />
+          <Icon
+            icon="fluent:ios-arrow-24-filled"
+            width="13"
+            className="text-black"
+            rotate={2}
+          />
         </button>
-        <div className="flex items-center font-semibold ml-2">
+        <div className="flex items-center font-semibold ml-2 text-[10px]">
           تقويم المواعيد
         </div>
       </aside>
@@ -166,7 +175,7 @@ function Section2({
   return (
     <section
       id="DayContainer"
-      className="flex justify-between items-center gap-1 overflow-auto border-b-2 border-dashed pb-3 DirectionRTL"
+      className="flex justify-between items-center gap-1 overflow-auto border-b-[1px] border-dashed pb-3 DirectionRTL"
     >
       {allMonthDays.map((item, index) => (
         <span key={index}>{item}</span>
@@ -212,8 +221,8 @@ function DayGenerator({
       <p
         className={
           privateDayNumber == selectedDayNumber
-            ? "flex justify-center items-center w-8 h-8 rounded-full text-[15px] bg-black text-white"
-            : "flex justify-center items-center w-8 h-8 rounded-full text-[15px]"
+            ? "flex justify-center items-center w-8 h-8 rounded-full text-[12px] bg-black text-white"
+            : "flex justify-center items-center w-8 h-8 rounded-full text-[12px]"
         }
       >
         {privateDayNumber}

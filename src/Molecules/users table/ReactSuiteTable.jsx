@@ -8,8 +8,10 @@ import SettingsButton from "./SettingsButton";
 import WorkDays from "./WorkDays";
 import FileOfRow from "./FileOfRow";
 import { usersData, columnsData } from "./TableData";
+import useScreenSize from "../../Atoms/useScreenSize";
 
 export default function ReactSuiteTable() {
+  const screenSize = useScreenSize();
   // show and hide columns
   const [isIDVisible, setIsIDVisible] = useState(true);
   const [isNameVisible, setIsNameVisible] = useState(true);
@@ -92,7 +94,7 @@ export default function ReactSuiteTable() {
   };
 
   return (
-    <main>
+    <main className="overflow-auto">
       <Table
         data={getData()}
         autoHeight
@@ -102,7 +104,7 @@ export default function ReactSuiteTable() {
         onSortColumn={handleSortColumn}
         loading={loading}
       >
-        <Column align="left" flexGrow={0.5} hidden>
+        <Column align="left" flexGrow={0.5}>
           <HeaderCell>
             <SettingsButton
               placement="rightStart"
@@ -130,6 +132,7 @@ export default function ReactSuiteTable() {
             case 1:
               return isIDVisible ? (
                 <Column
+                  minWidth={60}
                   align="right"
                   flexGrow={column.flexGrow}
                   key={index}
@@ -137,14 +140,18 @@ export default function ReactSuiteTable() {
                   onDragStart={(e) => dragStart(e, index)}
                   onDragEnter={(e) => dragEnter(e, index)}
                   onDragEnd={drop}
+                  width={200}
                 >
-                  <HeaderCell>{column.label}</HeaderCell>
-                  <Cell dataKey={column.dataKey} />
+                  <HeaderCell className="text-[10px]">
+                    {column.label}
+                  </HeaderCell>
+                  <Cell dataKey={column.dataKey} className="text-[10px]" />
                 </Column>
               ) : null;
             case 2:
               return isNameVisible ? (
                 <Column
+                  minWidth={120}
                   align="right"
                   flexGrow={column.flexGrow}
                   key={index}
@@ -154,8 +161,10 @@ export default function ReactSuiteTable() {
                   onDragEnter={(e) => dragEnter(e, index)}
                   onDragEnd={drop}
                 >
-                  <HeaderCell>{column.label}</HeaderCell>
-                  <Cell dataKey={column.dataKey}>
+                  <HeaderCell className="text-[10px]">
+                    {column.label}
+                  </HeaderCell>
+                  <Cell dataKey={column.dataKey} className="text-[10px]">
                     {(rowData) => {
                       if (rowData.name.length > 20) {
                         return (
@@ -178,6 +187,7 @@ export default function ReactSuiteTable() {
             case 3:
               return isEmailVisible ? (
                 <Column
+                  minWidth={150}
                   align="right"
                   flexGrow={column.flexGrow}
                   key={index}
@@ -186,13 +196,16 @@ export default function ReactSuiteTable() {
                   onDragEnter={(e) => dragEnter(e, index)}
                   onDragEnd={drop}
                 >
-                  <HeaderCell>{column.label}</HeaderCell>
-                  <Cell dataKey={column.dataKey} />
+                  <HeaderCell className="text-[10px]">
+                    {column.label}
+                  </HeaderCell>
+                  <Cell dataKey={column.dataKey} className="text-[10px]" />
                 </Column>
               ) : null;
             case 4:
               return isWorkdaysVisible ? (
                 <Column
+                  minWidth={170}
                   align="right"
                   flexGrow={column.flexGrow}
                   key={index}
@@ -201,7 +214,9 @@ export default function ReactSuiteTable() {
                   onDragEnter={(e) => dragEnter(e, index)}
                   onDragEnd={drop}
                 >
-                  <HeaderCell>{column.label}</HeaderCell>
+                  <HeaderCell className="text-[10px]">
+                    {column.label}
+                  </HeaderCell>
                   <Cell dataKey={column.dataKey}>
                     {(rowData) => <WorkDays workDays={rowData.workDays} />}
                   </Cell>
@@ -210,6 +225,7 @@ export default function ReactSuiteTable() {
             case 5:
               return isFileVisible ? (
                 <Column
+                  minWidth={140}
                   align="right"
                   flexGrow={column.flexGrow}
                   key={index}
@@ -218,8 +234,10 @@ export default function ReactSuiteTable() {
                   onDragEnter={(e) => dragEnter(e, index)}
                   onDragEnd={drop}
                 >
-                  <HeaderCell>{column.label}</HeaderCell>
-                  <Cell dataKey={column.dataKey}>
+                  <HeaderCell className="text-[10px]">
+                    {column.label}
+                  </HeaderCell>
+                  <Cell dataKey={column.dataKey} className="text-[10px]">
                     <FileOfRow />
                   </Cell>
                 </Column>
@@ -230,8 +248,16 @@ export default function ReactSuiteTable() {
       </Table>
       {/* pagination */}
       <div
+        className={`${
+          screenSize.width >= 768
+            ? "flex justify-between items-center"
+            : (screenSize.width < 768) & (screenSize.width > 480)
+            ? "flex justify-between items-center"
+            : screenSize.width <= 480
+            ? "flex flex-col justify-between items-center gap-3"
+            : ""
+        } `}
         style={{ padding: 20 }}
-        className="flex flex-col items-center gap-3 xl:flex-row xl:justify-between xl:items-start"
       >
         <Pagination
           prev
@@ -248,7 +274,7 @@ export default function ReactSuiteTable() {
           onChangePage={setPage}
           onChangeLimit={handleChangeLimit}
         />
-        <section className="flex justify-between items-start gap-2 font-semibold h-40">
+        <section className="flex justify-between items-start gap-2 font-semibold">
           <span>{users.length}</span>
           <span>من إصل</span>
           <Dropdown

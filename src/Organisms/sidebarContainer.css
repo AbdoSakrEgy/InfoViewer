@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-open-lg {
+  @apply relative w-[250px];
+}
+.sidebar-open-md {
+  @apply relative w-[250px];
+}
+.sidebar-open-sm {
+  @apply absolute w-full top-0 bottom-0 right-0;
+}
+
+.sidebar-close-lg {
+  @apply w-16 relative;
+}
+.sidebar-close-md {
+  @apply w-16 relative;
+}
+.sidebar-close-sm {
+  @apply w-16 relative;
+}

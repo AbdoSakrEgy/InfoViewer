@@ -1,46 +1,55 @@
 import React, { useState } from "react";
 import "rsuite/dist/rsuite.min.css";
 import { Progress } from "rsuite";
+import useScreenSize from "../../Atoms/useScreenSize";
 
 export default function Stats2() {
+  const screenSize = useScreenSize();
+
   return (
-    <>
-      <main className="flex flex-col justify-between gap-3 xl:gap-0 h-full xl:w-60 p-3 bg-white">
-        <section className="xl:text-right text-center font-bold">
-          إحصائيات
-        </section>
-        <section className="flex justify-center items-center">
-          <RadialProgress />
-        </section>
-        <section className="flex justify-around items-center">
-          <aside className="flex justify-end items-center relative">
-            <article className="flex flex-col items-end">
-              <span className="font-bold">108</span>
-              <span className="text-xs text-gray-400">الخيار الثاني</span>
-            </article>
-            <div className="absolute rounded h-full w-1 -right-4 bg-[#FEEE00]"></div>
-          </aside>
-          <aside className="flex justify-end items-center relative">
-            <article className="flex flex-col items-end">
-              <span className="font-bold">108</span>
-              <span className="text-xs text-gray-400">الخيار الأول</span>
-            </article>
-            <div className="absolute rounded h-full w-1 -right-4 bg-[#0771DE]"></div>
-          </aside>
-        </section>
-      </main>
-    </>
+    <main
+      className={`${
+        screenSize.width >= 768
+          ? "flex flex-col justify-between gap-3 w-[279px] h-[254.63px]"
+          : (screenSize.width < 768) & (screenSize.width > 480)
+          ? "flex flex-col justify-between gap-3 w-full h-[254.63px]"
+          : screenSize.width <= 480
+          ? "flex flex-col justify-between gap-3 w-full h-[254.63px]"
+          : ""
+      } py-4 bg-white px-[20px]`}
+    >
+      <section className="text-right font-bold">إحصائيات</section>
+      <section className="flex justify-center items-center">
+        <RadialProgress />
+      </section>
+      <section className="flex justify-around items-center">
+        <aside className="flex justify-end items-center relative">
+          <article className="flex flex-col items-end">
+            <span className="font-bold">108</span>
+            <span className="text-xs text-gray-400">الخيار الثاني</span>
+          </article>
+          <div className="absolute rounded h-full w-1 -right-4 bg-[#FEEE00]"></div>
+        </aside>
+        <aside className="flex justify-end items-center relative">
+          <article className="flex flex-col items-end">
+            <span className="font-bold">108</span>
+            <span className="text-xs text-gray-400">الخيار الأول</span>
+          </article>
+          <div className="absolute rounded h-full w-1 -right-4 bg-[#0771DE]"></div>
+        </aside>
+      </section>
+    </main>
   );
 }
 
 // ===========================================================
 function RadialProgress() {
   const style1 = {
-    width: 150,
+    width: 130,
     display: "inline-block",
   };
   const style2 = {
-    width: 100,
+    width: 90,
     display: "inline-block",
   };
 

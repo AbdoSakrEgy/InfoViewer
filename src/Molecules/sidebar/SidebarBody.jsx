@@ -10,12 +10,12 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
 
   return (
     <main
-      className={`flex flex-col justify-end gap-10 text-right text-sm mt-14 py-5 border-t bg-white ${
-        isSidebarOpen && "pl-10 "
+      className={`flex flex-col justify-end gap-5 text-right text-sm mt-14 border-t bg-white ${
+        isSidebarOpen && "pl-5"
       } text-black`}
     >
       <section>
-        <h1 className="text-sm mb-5 pr-5 text-gray-400">الرئيسية</h1>
+        <h1 className="text-[10px] pr-5 text-gray-400">الرئيسية</h1>
         <Menu
           name={"الرئيسية"}
           menuID={1}
@@ -58,7 +58,7 @@ export default function SidebarBody({ isSidebarOpen, setIsSidebarOpen }) {
         />
       </section>
       <section className="flex flex-col gap-5">
-        <h1 className="text-sm mb-5 pr-5 text-gray-400">الحساب</h1>
+        <h1 className="text-[10px] pr-5 text-gray-400">الحساب</h1>
         <Info
           menuID={6}
           linkActive={linkActive}
@@ -89,17 +89,17 @@ function Menu({
   return (
     <main
       onClick={() => setLinkActive(menuID)}
-      className="flex justify-end items-center gap-2 mt-7 text-sm font-semibold hover:cursor-pointer"
+      className="flex justify-end items-center gap-2 mt-7 text-[10px] font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>{name}</span>
       <span
         className={
           linkActive === menuID
-            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
-            : "py-2 pl-5 rounded-l-full"
+            ? "py-2 pl-3 rounded-l-full bg-[#FEEE00]"
+            : "py-2 pl-3 rounded-l-full"
         }
       >
-        <img src={homeIcon} alt="homeIcon" className="pr-5" />
+        <img src={homeIcon} alt="homeIcon" className="pr-3" />
       </span>
     </main>
   );
@@ -128,7 +128,7 @@ function MenuWithCollapse({
         }}
         className={`${
           isSidebarOpen && "flex justify-between items-center"
-        } p-0 text-sm font-semibold`}
+        } p-0 text-[10px] font-semibold`}
       >
         <Icon
           icon="ep:arrow-up-bold"
@@ -139,11 +139,11 @@ function MenuWithCollapse({
         <span className={`flex justify-end gap-2 items-center`}>
           <span className={`${!isSidebarOpen && "hidden"}`}>{name}</span>
           <span
-            className={`py-2 pl-5 rounded-l-full ${
+            className={`py-2 pl-3 rounded-l-full ${
               linkActive === menuID && "bg-[#FEEE00]"
             }`}
           >
-            <img src={homeIcon} alt="homeIcon" className="pr-5" />
+            <img src={homeIcon} alt="homeIcon" className="pr-3" />
           </span>
         </span>
       </section>
@@ -153,13 +153,13 @@ function MenuWithCollapse({
           isSidebarOpen ? !isCollapseOpen && "hidden" : "hidden"
         }`}
       >
-        <p className="text-right text-sm pr-20 hover:cursor-pointer">
+        <p className="text-right text-[10px] pr-16 hover:cursor-pointer">
           منيو ميني
         </p>
-        <p className="text-right text-sm pr-20 hover:cursor-pointer">
+        <p className="text-right text-[10px] pr-16 hover:cursor-pointer">
           منيو ميني
         </p>
-        <p className="text-right text-sm pr-20 hover:cursor-pointer">
+        <p className="text-right text-[10px] pr-16 hover:cursor-pointer">
           منيو ميني
         </p>
       </section>
@@ -177,17 +177,17 @@ function Info({
   return (
     <div
       onClick={() => setLinkActive(menuID)}
-      className="flex justify-end items-center gap-2 text-sm font-semibold hover:cursor-pointer"
+      className="flex justify-end items-center gap-2 text-[10px] font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>المساعدة</span>
       <span
         className={
           linkActive === menuID
-            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
-            : "py-2 pl-5 rounded-l-full"
+            ? "py-2 pl-3 rounded-l-full bg-[#FEEE00]"
+            : "py-2 pl-3 rounded-l-full"
         }
       >
-        <img src={infoIcon} alt="homeIcon" className="pr-5" />
+        <img src={infoIcon} alt="homeIcon" className="pr-3" />
       </span>
     </div>
   );
@@ -203,17 +203,17 @@ function Settinges({
   return (
     <div
       onClick={() => setLinkActive(menuID)}
-      className="flex justify-end items-center gap-2 text-sm font-semibold hover:cursor-pointer"
+      className="flex justify-end items-center gap-2 text-[10px] font-semibold hover:cursor-pointer"
     >
       <span className={`${!isSidebarOpen && "hidden"}`}>الإعدادات</span>
       <span
         className={
           linkActive === menuID
-            ? "py-2 pl-5 rounded-l-full bg-[#FEEE00]"
-            : "py-2 pl-5 rounded-l-full"
+            ? "py-2 pl-3 rounded-l-full bg-[#FEEE00]"
+            : "py-2 pl-3 rounded-l-full"
         }
       >
-        <img src={setting} alt="homeIcon" className="pr-5" />
+        <img src={setting} alt="homeIcon" className="pr-3" />
       </span>
     </div>
   );
