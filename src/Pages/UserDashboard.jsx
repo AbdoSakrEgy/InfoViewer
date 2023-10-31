@@ -12,7 +12,7 @@ export default function UserDashboard() {
     <main
       className={`${
         screenSize.width >= 768
-          ? "flex justify-between items-start w-fit bg-[#F6F6F6]"
+          ? "flex justify-between items-start w-full bg-[#F6F6F6]"
           : (screenSize.width < 768) & (screenSize.width > 480)
           ? "flex flex-col-reverse w-full bg-[#F6F6F6]"
           : screenSize.width <= 480
