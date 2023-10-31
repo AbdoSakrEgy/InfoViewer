@@ -1,9 +1,0 @@
-.usersDateContainer-lg {
-  @apply flex flex-col gap-5 w-[386px] ;
-}
-.usersDateContainer-md {
-  @apply flex flex-col gap-5 w-full ;
-}
-.usersDateContainer-sm {
-  @apply flex flex-col gap-5 w-full ;
-}

@@ -4,7 +4,6 @@ import logo from "../assets/logo.png";
 import miniLogo from "../assets/miniLogo.png";
 import SidebarBody from "../Molecules/sidebar/SidebarBody";
 import useScreenSize from "../Atoms/useScreenSize";
-import "./sidebarContainer.css";
 
 export default function SidebarContainer() {
   const screenSize = useScreenSize();
@@ -15,18 +14,18 @@ export default function SidebarContainer() {
       className={`${
         isSidebarOpen
           ? screenSize.width >= 768
-            ? "sidebar-open-lg"
+            ? "relative w-[250px]"
             : (screenSize.width < 768) & (screenSize.width > 480)
-            ? "sidebar-open-md"
+            ? "relative w-[250px]"
             : screenSize.width <= 480
-            ? "sidebar-open-sm"
+            ? "absolute w-full top-0 bottom-0 right-0"
             : ""
           : screenSize.width >= 768
-          ? "sidebar-close-lg"
+          ? "w-16 relative"
           : (screenSize.width < 768) & (screenSize.width > 480)
-          ? "sidebar-close-md"
+          ? "w-16 relative"
           : screenSize.width <= 480
-          ? "sidebar-close-sm"
+          ? "w-16 relative"
           : ""
       } duration-300 z-40 bg-white text-white border-l-[1px] border-[#F6F6F6]`}
     >
