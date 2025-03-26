@@ -12,10 +12,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/user-dashboard",
+    path: "/InfoViewer",
     element: <Root />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/user-dashboard",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  }, //old path
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
