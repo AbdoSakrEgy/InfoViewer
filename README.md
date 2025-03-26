@@ -49,4 +49,4 @@ GitHub is made up of repositories. A repository is a place where all files in a 
     $ npm run dev
 
 ## DEMO
-https://abdosakregy.github.io/user-dashboard/
+https://abdosakregy.github.io/InfoViewer/
