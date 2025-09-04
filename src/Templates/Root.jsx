@@ -7,7 +7,7 @@ export default function Root() {
   return (
     <main className="flex justify-end bg-white">
       <div className="flex flex-col w-full overflow-auto">
-        <PageHeader />
+        {/* <PageHeader /> */}
         <span className="overflow-auto bg-[#F6F6F6]">
           <UserDashboard />
         </span>
